@@ -1,0 +1,24 @@
+users: 
+   id,name,email,phnno,role_id
+
+posts:
+   id,title,description,image,created_at,updated_at,user_id,category_id
+
+roles:
+   id,role_name(admin,superadmin,viewer)
+
+category:
+    id,categ_name
+
+
+User one to many Posts vs post one to one user
+User one to one Role vs Role one to many Users
+Category one to many Posts vs Post one to one Categories
+
+
+
+
+
+
+
+

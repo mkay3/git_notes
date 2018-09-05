@@ -1,0 +1,70 @@
+mohit.kumar@B2C-IT-LAP150
+
+$ git init   : create a new git repository 
+
+$ git config --global user.name "mkay3"
+$ git config --global user.email "m@a"
+
+$ git config user.name/user.email : show name/email
+
+$ git ls     :to show folder and files of current directory:
+
+$ git log    :to show all commits
+
+$ git log --author="mohit" : to show commits only from mohit
+
+$ git status :show weather you're working on a file or not i.e any file is remaining to commit or not
+
+$ git add .  : add all changes made to the project i.e if a new file/folder is created
+	     : add all modiied files to the project
+
+$ git commit -m "this is our first commit"   : commit the changes
+
+$ pwd   : show current directory url
+
+$ cd ~  : takes you to home directory
+
+$ git add filename.txt : add specific file if edited or created
+
+$ git diff (working copy vs repository) : show the changes made in file/files
+					: show diff bw working copies to repository files
+
+$ git diff --staged (staging area vs repositroy) : show changes made in added files to repository files
+
+$ git rm filename : remove file
+
+$ git mv first.txt first2.txt  : rename file
+
+$ git mv first.txt newfolder/first2.txt  : also move files to another folder
+
+$ git checkout -b <branchname> : create a new branch and switch to it
+
+$ git checkout <branchname> : SWITCH from one branch to another
+
+$ git push origin <branchname> : Push the branch to your remote repository, so others can use it
+
+$ git branch : list all the branches
+
+$ git branch -d <branchname> : Delete the feature branch
+
+$ git push origin :<branchname> : Delete a branch on your remote repository
+
+# HOW TO PUSH YOUR CODE TO GITHUB
+1) git init
+
+2) git add .
+
+3) git commit -m "Add all my files"
+
+4) git remote add origin https://github.com/yourusername/your-repo-name.git
+
+5) git pull origin master
+
+6) git push origin master
+
+# HOW TO PULL CODE FROM GITHUB MASTER BRANCH TO LOCAL DIRECTORY
+
+1) git pull origin master
+
+
+$ git remote -v : list all currently configured remote repositories

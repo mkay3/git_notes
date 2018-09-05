@@ -1,0 +1,19 @@
+# How to start Serving Your Application
+php -S localhost:8000 -t public
+
+# To create a new table:
+php artisan make:migration create_table_tablename --create=tablename
+
+# Clients Credentials Grant:
+suitable for machine-to-machine authentication
+make a client using php artisan passport:client
+use this client client's id grant_type=client_credentials and client secret to get access token
+use this access token to get information from api server
+
+#Password Grant:
+it allows your other first-party clients, such as a mobile application,
+make a client using php artisan passport:client --password
+to obtain an access token using an e-mail address / username and grant_type=password.
+
+
+
