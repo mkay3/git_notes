@@ -2,12 +2,14 @@ mohit.kumar@B2C-IT-LAP150
 
 $ git init   : create a new git repository 
 
-$ git config --global user.name "mkay3"
-$ git config --global user.email "m@a"
+#KNOW USERNAME OR EMAIL
+	$ git config --global user.name "mkay3"
+	$ git config --global user.email "m@a"
 
-$ git config user.name/user.email : show name/email
 
-$ git ls     :to show folder and files of current directory:
+	$ git config user.name/user.email : show name/email
+
+$ ls     : to show folder and files in current directory:
 
 $ git log    :to show all commits
 
@@ -37,34 +39,40 @@ $ git mv first.txt first2.txt  : rename file
 
 $ git mv first.txt newfolder/first2.txt  : also move files to another folder
 
-$ git checkout -b <branchname> : create a new branch and switch to it
+CREATE NEW BRANCH:
+	$ git checkout -b <branchname> : create a new branch and switch to it
 
-$ git checkout <branchname> : SWITCH from one branch to another
+Switch BRANCH:
+	$ git checkout <branchname> : SWITCH from one branch to another
 
-$ git push origin <branchname> : Push the branch to your remote repository, so others can use it
+PUSH BRANCH TO SERVER:
+	$ git push origin <branchname> : Push the branch to your remote repository, so others can use it
 
-$ git branch : list all the branches
+SHOW ALL BRANCHES:
+	$ git branch : list all the branches
 
+DELETE BRANCH ON LOCAL:
 $ git branch -d <branchname> : Delete the feature branch
 
+DELETE BRANCH ON SERVER:
 $ git push origin :<branchname> : Delete a branch on your remote repository
 
-# HOW TO PUSH YOUR CODE TO GITHUB
-1) git init
+# HOW TO PUSH YOUR CODE TO SERVER(GITHUB)
+	1) git init
 
-2) git add .
+	2) git add .
 
-3) git commit -m "Add all my files"
+	3) git commit -m "Add all my files"
 
-4) git remote add origin https://github.com/yourusername/your-repo-name.git
+	4) git remote add origin https://github.com/yourusername/your-repo-name.git
 
-5) git pull origin master
+	5) git pull origin master
 
-6) git push origin master
+	6) git push origin master
 
 # HOW TO PULL CODE FROM GITHUB MASTER BRANCH TO LOCAL DIRECTORY
 
-1) git pull origin master
+	1) git pull origin master
 
 
 $ git remote -v : list all currently configured remote repositories
