@@ -1,0 +1,69 @@
+How To install angular :
+
+ npm install -g @angular/cli
+
+
+
+Step 2. Create a new project 
+
+ng new my-app or
+cd my-app
+ng serve
+
+# HOW TO CREATE A NEW COMPONENT IN ANGULAR
+1) create folder in src/app/ i.e server
+2) in src/app/server/ , create a component.ts file
+   i.e server.component.ts
+3) A component is just a class i.e a typescript class
+4) export the server class so that we can use it in outside also
+  i.e as it is going to be used in app component
+5) syntax:  
+ i.e    export class ServerComponent {
+	
+	}	
+6) Decorators are always attached with @ sign
+7) add a class decorator to make this class a component not just a simple typescript class
+  i.e  @component()
+	export class ServerComponent {
+	
+	}
+	
+8) import this decorator component 
+    i.e	import { component } from '@angular/core'
+    	@component()
+	export class ServerComponent {
+	
+	}
+9) now pass js object to this component i.e selector,templateurl ,
+   i.e	import { component } from '@angular/core'
+    	@component({
+		selector:'app-server'
+		templateUrl: './server.component.html'
+	})
+	export class ServerComponent {
+
+	}
+  #selector name shd be unique
+  #create a new html file server.component.html in same dir
+10) our comp is ready to use , 
+   #angular use components to build web pages and uses modules to bundle different components into packages
+   # only app module is fine for most projects , only multiple projects need diff modules
+
+11) declare server comp in app.module.ts under @ngModule
+	import { BrowserModule } from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
+
+import { AppComponent } from './app.component';
+
+@NgModule({
+  declarations: [
+    AppComponent
+#   ServerComponent
+  ],
+  imports: [
+    BrowserModule
+  ],
+  providers: [],
+  bootstrap: [AppComponent]
+})
+export class AppModule { }

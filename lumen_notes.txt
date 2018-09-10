@@ -1,3 +1,8 @@
+#How to install lumen
+    move to the desired directory using cmd
+    composer create-project --prefer-dist laravel/lumen lumen-jwt(folder-name)
+    installation will start .. 
+
 # How to start Serving Your Application
 php -S localhost:8000 -t public
 
