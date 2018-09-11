@@ -2,13 +2,15 @@ How To install angular :
 
  npm install -g @angular/cli
 
-
-
 Step 2. Create a new project 
-
 ng new my-app or
 cd my-app
 ng serve
+
+#How angular js load and start
+main.ts
+index.html 
+
 
 # HOW TO CREATE A NEW COMPONENT IN ANGULAR
 1) create folder in src/app/ i.e server
@@ -21,13 +23,13 @@ ng serve
  i.e    export class ServerComponent {
 	
 	}	
-6) Decorators are always attached with @ sign
-7) add a class decorator to make this class a component not just a simple typescript class
+
+6) add a class decorator to make this class a component not just a simple typescript class
   i.e  @component()
 	export class ServerComponent {
 	
 	}
-	
+7) Decorators are always attached with @ sign
 8) import this decorator component 
     i.e	import { component } from '@angular/core'
     	@component()
@@ -50,7 +52,7 @@ ng serve
    # only app module is fine for most projects , only multiple projects need diff modules
 
 11) declare server comp in app.module.ts under @ngModule
-	import { BrowserModule } from '@angular/platform-browser';
+import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
@@ -67,3 +69,62 @@ import { AppComponent } from './app.component';
   bootstrap: [AppComponent]
 })
 export class AppModule { }
+
+
+# HOW TO GENERATE COMPONENTS USING CLI
+ ng generate component test
+ ng g c test	
+
+#you must have either templateUrl or template in .ts file
+i.e @Component({
+     selector: 'app-test';
+     template: '<app-server></app-server>';
+ 	   
+     })
+
+#you can have inline css also 
+i.e @Component({
+     selector: 'app-test';
+     templateUrl:'./test.component.html';
+     styles: [`
+	h3{
+	   color:dodgerblue;
+	}	
+	`]	   
+     })
+
+#you must have only 1 template file but you can have multiple css files
+
+#We can use selectors in many ways:
+i.e @Component({
+     selector: '[app-test]';    =>   <div app-test> hello </div>
+     selector: '.app-test';     =>   <div class="app-test"> hello </div>
+     selector: '';
+        })
+
+#String Interpolation : used to o/p data in a template
+ 1) in class in .ts file create variables,methods and assign value
+ 2) in  .html file , call these variables and methods
+  
+#Property Binding : 
+<button class="btn btn-primary" [disabled]="!allowNewServer"> Add Server </button>
+ # here , allownewserver is a variable created in test.ts file
+i.e  export class TestComponent{ 
+
+	allowNewServer = false;
+
+	constructor(){
+		setTimeout(() => {
+			this.allowNewServer = true;
+		},2000);
+	}
+
+	
+}
+#Comparison
+<h3> {{ allowNewServer }}</h3>
+<h3 [Innertext]="allowNewServer"></h3>
+<h3 [disabled] = "allowNewServer"></h3>
+<h3 (click) = "function()"></h3>
+
+#for events use () and for properties use [] 
