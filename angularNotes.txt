@@ -99,7 +99,7 @@ i.e @Component({
 i.e @Component({
      selector: '[app-test]';    =>   <div app-test> hello </div>
      selector: '.app-test';     =>   <div class="app-test"> hello </div>
-     selector: '';
+     selector: 'app-test';      =>   <app-test></app-test>
         })
 
 #String Interpolation : used to o/p data in a template
@@ -122,9 +122,12 @@ i.e  export class TestComponent{
 	
 }
 #Comparison
-<h3> {{ allowNewServer }}</h3>
-<h3 [Innertext]="allowNewServer"></h3>
-<h3 [disabled] = "allowNewServer"></h3>
-<h3 (click) = "function()"></h3>
+<h3> {{ allowNewServer }}</h3>    S.I
+<h3 [Innertext]="allowNewServer"></h3>  P.B
+<h3 [disabled] = "allowNewServer"></h3>  P.B
+<h3 (click) = "function()"></h3> E.B
 
 #for events use () and for properties use [] 
+
+# *ngIf
+ <p *ngIf="serverCreated" >Server was created, server name is {{ serverName }} </p>
