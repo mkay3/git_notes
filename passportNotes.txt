@@ -1,0 +1,36 @@
+# How to install passport:
+1)	Run command:  composer require laravel/passport
+2)	open config/app.php and add following code:
+	'providers' =>[
+		Laravel\Passport\PassportServiceProvider::class,
+	],
+
+3) php artisan migrate
+4) Next command,it will create token keys for security:
+	php artisan passport:install
+5) Do some changes 
+# In User model : 
+	use Laravel\Passport\HasApiTokens;
+	class{ 
+           use  HasApiTokens,Notifiable;
+	}
+# In app/Providers/AuthServiceProvider.php:
+     use Laravel\Passport\Passport; 
+     public function boot(){
+        	$this->registerPolicies();
+         	Passport::routes();
+     }
+
+# In config/auth.php :
+	'guards' => [ 
+        'web' => [ 
+            'driver' => 'session', 
+            'provider' => 'users', 
+        ], 
+        'api' => [ 
+            'driver' => 'passport', 
+            'provider' => 'users', 
+        ], 
+    ],
+
+6)

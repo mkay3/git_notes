@@ -188,11 +188,9 @@ Route::get('middleware_testing',['middleware'=>'Loggerbla','uses'=>'AdminControl
 Route::get('middleware_testing','AdminController@index')->middleware('midname');
    OR
 In controller,  public function __construct(){ $this->middleware(['mid1','mid2']); } 
-
 @if multiple middlewares are there:
 In Kernel.php,   $middlewareGroups = ["key"=>[\App\m1,\App\m2,\App\m3]];
 Route::get('middleware_testing','c@m')->middleware(['middleware1','middleware2');
-
 @how to assign middlewares to only specific methods i.e only dashboard and index methods
 public function __construct(){
   $this->middleware(['auth','logger'],['only'=>['dashboard','index'],]);
@@ -238,5 +236,277 @@ output:  test 2
 @include must be used as it reduce time and error chances
 
 !! @each('view_name',$data,'name by which variable is created in view_name','else case view');
+   @each('view2',$data,'items','else_view');
 
-@stack @push @endpush for css and js
+#CSS AND JS
+@stack('stackname') i.e @stack('css')  i.e @stack('js') 
+@push('stackname') i.e @push('css') i.e @push('js')
+@endpush               @endpush          @endpush  
+we can use multiple push for same stackname
+
+!! {{-- commentable statement -- }} used to comment ,benefit is not visible in even source code
+
+#DATABASE THINGS
+fluent is a library much advance than active records(codeigniter)
+ORM : 
+$user = new User();
+$user->fname = 'mohit'
+$user->lname = 'kumar'
+$user-save();
+$user->update();
+$user->delete();
+
+SELECT QUERY:   Customers::all(); select * from customers
+!! table name is always pural while model is singular
+!! abc table is also possible which comes under override 
+!! by default ,primary key of each table should be id 
+!! laravel assumes that there are 2 default fields 'created_at' and 'updated_at' which fill 
+automatically , if not found generate errors , override is possible
+
+#How To Change Traditional Table name or Primary key name or Avoid creating extra fields
+Model :  
+class Customer extends Model{
+	  protected $table = 'customer_list';
+	  protected $primaryKey = 'customer_id';
+	  public $timestamps = false;
+	}
+table name will change from customers to customer_list
+
+#Model:How TO AVOID MASS ASSIGNMENT EXCEPTION
+ class Customer extends Model{
+  protected $fillable = ['name','phnno','address']; OR protected $guarded = ['isadmin'];	
+ }
+!! protected fillable=[] means no one is need to fill
+!! protected guarded=[] means no one is need to guard,all fields will be inserted
+
+
+INSERT or Create QUERY:
+Using Normal way
+	$Customer = new Customer; OR $Customer = new App\Customer;
+	$customer->name = 'mohit';
+	$Customer->phnno = '9996368333';
+	$Customer->address = 'noida';
+	$Customer->save();
+	
+OR Using Constructor
+	$Customer = new Customer([
+	'name'=>'mohit',
+	'phnno'=>'9996368333',
+	'address'=>'noida',
+	]);
+	$customer->save();      gives mass assignment error
+OR Using CREATE method
+  $Customer = Customer::create([
+	'name'=>'mohit',
+	'phnno'=>'9996368333',
+	'address'=>'noida',
+	]);
+	echo $Customer->id;
+	
+
+#How to INSERT additional values in a table
+	$Customer = new Customer([
+	'name'=>'mohit',
+	'phnno'=>'9996368333',
+	'address'=>'noida',
+	]);
+	
+	$Customer->fill([
+	'state'=>'Haryana'
+	'country'=>'India'
+	]);
+	$Customer->save();
+
+#How to UPDATE a Model
+	$Customer = Customer::get($id);
+	$Customer->fill([
+	'name'=>'mohit',
+	'phnno'=>'9996368333',
+	'address'=>'noida',
+	'state'=>'Haryana'
+	'country'=>'India'
+	]);
+	$Customer->save();
+
+#How to DELETE a MODEL i.e a row from table
+      $Customer= Customer::find($id);
+	do any activity like data persistence
+	$trail = new Trail([
+	'username'=>$Customer->name;
+	])
+	$Customer->delete();
+OR DIRECT DELETE
+      $Customer= Customer::destroy($id);
+
+#FORM BUILDER
+Route::get('adduser','c@m')->name('registration');
+ 
+ {!! Form::open(['url'=>'adduser'])   !!}
+ {!! Form::open(['route'=>'name of route if given i.e registration']) !!}
+ {!! Form::open(['action'=>'c@m']) !!}
+ {!! Form::text('field_one') !!}
+ {!! Form::close() !!}
+
+Packages to IMport: FORM,HTML,INPUT
+#Input Data from Form
+!! In controller: /Input::get('field_one','Not found');
+!! In controller: /Input::all();
+!! In controller: /Input::only('field_one','field_two'); security purpose
+!! In controller: /Input::except('field_three');
+
+function (Request $request){
+   $field_one = $request->get('field_one');  
+	OR
+   $field_one = $request->field_one; //magic method
+}
+#FORM VALIDATION OLD METHOD
+$v =  Validator::make($request->all,[
+   'field_one'=>'required|alpha' OR ['required','alpha']
+ ])
+if( $v->passes() ){
+
+}
+
+if( $v->fails() ){
+   return back();
+}
+#FORM VALIDATION NEW METHOD
+In controller 
+#1:  Validator::make($request->all(), $rules)->validate();
+#2:  $request->validate($rules);
+#3:  $this->validate($request,$rules);
+##: can be used in all 3 above
+ $v = $this->validate($request,[
+   'field_one'=>'required|alpha',
+ ])
+
+#How to Preserve Data WHEN Validation fail
+by using middleware group web which includes sessionstart middleware
+
+#How to make rules class for form validation
+ crate a new request in app/http/requests/
+ In rules method 
+class testrequest
+ public function rules()
+    {
+        return [
+            'field_one'=>'required|alpha'
+        ];
+    } 
+ In controller
+    public function formSubmit(testrequest $request){
+        echo $request->field_one;        
+    }
+#HOW TO DISPLAY VALIDATION ERROR MSGS
+ echo $errors->first('field_one');
+ echo $errors->first('field_one','<li class="error">:message</li>');
+ output: <li class="error">the field field_one is required.</li>
+whatever we write will be replaced by :message
+
+#HOW TO SHOW CUSTOMIZED ERROR MSGS
+ In testrequest class ,create a third method message
+  public function message(){
+    return[
+    'required'=>'field :attribute can't be blank',
+    'text2.required'=>'field :attribute is blank and must be filled','
+  ];
+  }
+
+#SESSION 
+.env:  session driver: file/database/radis/memecached
+In controller,  
+$session = $request->session();
+$session->put('varname');
+$session->get('varname','var value');
+$session->get('varname2','Default value'); if not present return "default value"
+$session->get('varname',function(){
+ return 2+3;
+});         O/p: 5
+$session->forget('varname');
+@if wanted to show just for next request
+$session->flash('varname','some data');
+@if needs for 2nd next request
+$session->reflash();
+
+#MIGRATION:
+@how to change a column name and as again in table 
+edit changes and  php artisan migrate:refresh : it will rollback and  migrate again , shd never be used on production server 
+as it may delete concurrent developer tables..to resolve this create another migration
+make:migrate add-phone-number
+up function:
+!! Schema::create    <= to create new table
+!! Schema::table     <= to make changes in exisiting table
+!! $Schema::table->string('phone_number')->nullable();
+!! $table->engine = 'InnoDB';
+down function:
+!! $table->drop('tablename');
+!! $table->dropColumn('colname') 
+
+#QUERY BUILDER
+ By using Model:
+ Customer::all();
+ By using Query Builder
+ \DB::table('customers')->get();
+!! DB::table('tablename')
+->select('')
+->where('')
+->get(); 
+OR
+!! $queryObject = \DB::table('tablename')
+  $queryObject->where('id',2); OR where('id','=/</>/like',2/'rahul'/%rah/rah%);
+    ->where([
+       ['id',2],
+       ['phone','like','%99999']
+	]);
+  ->orWhere('id',2);
+ $queryObject->select('col1','col2','col3');
+$result = $queryObject->get();  
+!!
+$q->join('product as p'); 
+$q->addSelect();
+$q->select(DB::raw("COUNT('name') as customer_count"));
+!! $q->whereIn('id',array());
+!! $q->whereNotIn('id',array());
+!! whereBetween('id',[10,20]);
+!! whereNull('updated at');
+!! whereColumn('col1','col2');
+!! whereColumn('col1','=/</>','col2');
+#QUERY LOG
+Use DB:
+DB::enableQueryLog();
+DB::getQueryLog();
+
+#Make:Auth
+
+#HOW TO SOFT DELETE RECORDS
+use Illuminate\Database\Eloquent\SoftDeletes;
+class Flight extends Model{
+    use SoftDeletes;
+    protected $dates = ['deleted_at'];
+}
+!! Of course, you should add the deleted_at column to your database table.
+Schema::table('flights', function ($table) {
+    $table->softDeletes();
+});
+
+#Restoring Soft Deleted Models
+$flight->restore();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

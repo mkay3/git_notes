@@ -19,6 +19,3 @@ Category one to many Posts vs Post one to one Categories
 
 
 
-
-
-

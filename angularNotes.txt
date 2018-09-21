@@ -11,6 +11,12 @@ ng serve
 main.ts
 index.html 
 
+#HOW TO ADD BOOTSTRAP STYLE IN ANGULAR
+1) npm install --save bootstrap
+2) add "node_modules/bootstrap/dist/css/bootstrap.min.css"
+in node_modules/bootstrap/dist/css/bootstrap.min.css(styles)
+3) restart the app i.e ng serve
+
 
 # HOW TO CREATE A NEW COMPONENT IN ANGULAR
 1) create folder in src/app/ i.e server
@@ -21,8 +27,11 @@ index.html
   i.e as it is going to be used in app component
 5) syntax:  
  i.e    export class ServerComponent {
-	
-	}	
+
+ }
+#Angular is a collection of modules and each module is made up of components and services.
+# app is the default module given by default and app component is the default component
+# component = HTML + CLASS	
 
 6) add a class decorator to make this class a component not just a simple typescript class
   i.e  @component()
@@ -70,10 +79,12 @@ import { AppComponent } from './app.component';
 })
 export class AppModule { }
 
+# HOW TO CREATE A NEW COMPONENT WITHOUT SPEC FILE
+ng g c comp_name --spec false
 
 # HOW TO GENERATE COMPONENTS USING CLI
- ng generate component test
- ng g c test	
+ ng generate component component_name
+ ng g c component_name
 
 #you must have either templateUrl or template in .ts file
 i.e @Component({

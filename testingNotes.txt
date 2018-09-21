@@ -1,0 +1,12 @@
+# Unit testing is like testing one unit i.e store method,create method
+# Feature testing is like tesing one whole feature includes multiple methods
+  i.e adding something to user profile, visiting page,submitting form and 
+  getting response.
+# why we need testing : it is useful in log term 
+# located in venodr/bin/php unit
+# synatx : ./vendor/bin/phpunit  : it will run the given tests
+# every timewe need to use above command, so let's create alias of it
+ $  alias phpunit=vendor/bin/phpunit
+
+# TEST each method seperately by using 
+	vendor/bin/phpunit --filter=testShouldReturnAllProducts(methodname) 
