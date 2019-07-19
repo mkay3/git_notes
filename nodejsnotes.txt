@@ -1,0 +1,96 @@
+# npm is a package manager for node js packages
+
+# A package contain all the files you need for a module.
+
+# A module is a javascript library you can include in your project.
+
+#How to install a package
+	npm install package-name
+	
+#How to use a package
+	var x = require('package-name');
+	
+#Events
+	#The Formidable Module : good to work with file uploads
+	
+
+	
+# var dt = require('./myfirstmodule');
+Here we use ./ to locate the module, that means that the module is located in the same folder as the Node.js file
+
+# exports.myDateTime = function () {
+  return Date();
+}; 
+Use the exports keyword to make properties and methods available outside the module file.
+
+# http.createServer(function (req, res) { }
+Use the createServer() method to create an HTTP server:
+
+# res.writeHead(200, {'Content-Type': 'text/html'});
+The first argument of the res.writeHead() method is the status code, 200 means that all is OK, the second argument is an object containing the response headers.
+
+# http.createServer(function (req, res) {}
+The function passed into the http.createServer() has a req argument that represents the request from the client, as an object (http.IncomingMessage object).
+
+# res.write(req.url);
+This object has a property called "url" which holds the part of the url that comes after the domain name:
+
+# Common use for the File System module:
+    Read files
+    Create files
+    Update files
+    Delete files
+    Rename files
+
+# The fs.readFile() method is used to read files on your computer.
+var http = require('http');
+var fs = require('fs');
+http.createServer(function (req, res) {
+  fs.readFile('demofile1.html', function(err, data) {
+    res.writeHead(200, {'Content-Type': 'text/html'});
+    res.write(data);
+    res.end();
+  });
+}).listen(8080); 
+
+# Create Files
+    fs.appendFile()
+    fs.open()
+    fs.writeFile()
+
+# The fs.appendFile() method appends specified content to a file. If the file does not exist, the file will be created:
+var fs = require('fs');
+fs.appendFile('mynewfile1.txt', 'Hello content!', function (err) {
+  if (err) throw err;
+  console.log('Saved!');
+}); 
+
+# The fs.open() method takes a "flag" as the second argument, if the flag is "w" for
+"writing", the specified file is opened for writing. If the file does not exist, an empty file is created:
+var fs = require('fs');
+
+fs.open('mynewfile2.txt', 'w', function (err, file) {
+  if (err) throw err;
+  console.log('Saved!');
+});
+
+#to install a module globally
+npm install express -g  
+
+# Uninstalling a Module
+npm uninstall express  
+
+# see list of modules
+npm ls
+
+# Searching a Module in node js 
+npm search express
+
+# To evaluate an argument (but not print result):
+node -e, node --eval
+
+# To evaluate an argument and print result also:
+node -p
+#redmi note 7 64 gb 
+#asus zenfone max pro m2
+#Moto One Power
