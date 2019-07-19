@@ -1,5 +1,5 @@
 #How to install lumen
-    move to the desired directory using cmd
+    Move to the desired directory using cmd
     composer create-project --prefer-dist laravel/lumen lumen-jwt(folder-name)
     installation will start .. 
 

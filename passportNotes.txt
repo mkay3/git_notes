@@ -1,3 +1,4 @@
+https://null-byte.wonderhowto.com/how-to/social-engineering-part-2-hacking-friends-facebook-password-0130323/
 # How to install passport:
 1)	Run command:  composer require laravel/passport
 2)	open config/app.php and add following code:
@@ -34,3 +35,31 @@
     ],
 
 6)
+
+# GRANT TYPES
+## Authorization code grant
+1) create a client using passport:client method
+2) create redirect url to get authorization codes
+	Route::get('/redirect',function(){
+	  $query = http_build_query(
+	  	'client_id' => '',
+		'client_secret' => '',
+		'redirect_url' =>'',
+		'response_type' => 'code',
+		'scope' =>'',
+	   ) 
+	});
+
+	redirect('www.example.com/oauth/authorize?'.$query);
+
+3) create post request to get token
+	www.myserversite.com/oauth/token
+	'client_secret'=>'',
+	'code'=>'',
+	'redirect_url'=>'',
+	'grant_type'=>'authorization_code',
+	'client_id'=>'',
+
+4) Enjoy !    
+
+# Password grant

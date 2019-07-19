@@ -1,0 +1,88 @@
+#While on branch stage (when need to pull and push)
+
+git status;
+git pull origin stage;
+git add .;
+git commit -m "#1859";
+git push origin stage;
+
+git pull origin stage;git add .;git commit -m "#hdfc_api";git push origin stage;
+
+#HOW TO CREATE A NEW BRANCH FROM MASTER
+$ git remote update
+$ git checkout -b AN_1888_MA(branchname) origin/master
+$ git pull origin master
+
+#HOW TO CLEAR CACHE
+php artisan config:cache
+delete andromeda/bootstrap/config.php
+
+#HOW TO PUSH CODE IN YOUR BRANCH
+git add .;
+git commit -m "#1859";
+git push origin stage;
+
+#HOW TO MERGE CODE IN DEV
+@first push in your branch
+change the branch to dev
+pull code from dev
+merge both directories(my branch and dev)
+push code
+
+git checkout dev
+git pull origin dev
+git merge AN_1888_MA(my branch)
+git push origin dev
+
+HOW TO ADD if any file is modified in between i.e
+ modified:   resources/views/layout.blade.php
+
+HOW TO HANDLE CONFLICTS
+# git checkout origin/stage(place where dified)  resources/views/layout.blade.php(modified filename)
+# git commit -m "#1910"
+# git push origin stage
+
+## git branch -D dev stage  : it will delete both local branches dev and stage
+
+##abort merge:          git merge --abort
+
+#GENERATE PATCH
+git checkout mybranchname
+git diff origin/master mybranchname >ticketid.patch 
+
+# git checkout -f 
+
+# git remote update
+update the code from all remote locations
+
+
+# To know the difference of what's being done
+git diff origin/master AN_1888_MA >1888.patch  
+
+#HOW TO IMPORT DATABASE FROM SERVER TO LOCAL
+mysql -u username -p database_name < file.sql
+
+//////////////////////
+git add .;
+git commit -m "#1910";
+git push origin AN_1910_MA;
+
+git checkout dev
+git pull origin dev
+git merge AN_1910_MA
+git push origin dev
+
+git checkout stage
+git pull origin stage
+git merge AN_1910_MA
+git push origin stage
+
+///////////////////
+copy database query :
+mysql -u username -p database_name < file.sql
+
+
+
+
+
+app/Http/Controllers/Application/Cpf/ApplicationController.php

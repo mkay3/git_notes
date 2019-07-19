@@ -1,0 +1,37 @@
+//public key
+"""
+-----BEGIN PUBLIC KEY-----\n
+MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAmqobFF8ZipqOBWiaPdZ8\n
+9nw8eouuz1jPFuZFm5rHeemvM80AI8cDItlo2RFfDLDPkXLEyAPZijxDsEm8Jka2\n
+Y3O2M1AcEfCCfX5vzxwlIz+GlYCDnMQjf4V2IPmhnQlvV46anWczRA70OLqrBcY7\n
+/Cpe4BJdKXQof85aJarDS6jEEg8rWJmMS0i6niQD4CsJu6pPI3YDnRYvcTCvipr9\n
+Q4Cmi0WPbJxxLjVJEyVsNxDOGvbk9KXr+yRkOntG0tbBlmMmNhZzzgO+HacbRKrx\n
+2SDcDEDz0udJe0MWD9MRKyMUR/7oybyaNpWQTbJLelm6oKe1MpOwpmn6O7xCunt+\n
+DQIDAQAB\n
+-----END PUBLIC KEY-----\n
+
+
+//REQUEST
+"body" => "{"RequestSignatureEncryptedValue":"Lf1oPOetNPn0uDffIAfntbuW5MS2t\/HHGUZHm8ctWMaSWXcfiT7\/jrYiFZNP57wsc0S2v8ad3oZM 9Cm+8kOWfj4\/P5ISm0Dfsa0qR\/CJCbHc+RzRgIWyu72Wd4VLEPmseRFQXj6xbd6B2akrS9V0oHfP+FtiGsXmdYX5U9H4ToYPa9uLKg8Klz00tL9Plm692KvXaOdz3rv+gAMLZbPPex4wpiPvcf1tfM6G aQ2eNcemJyMGHL6SYm7XKyBqKVmE8Zwt38BCN\/P47RmrBRFYKzzZd4v4x0lJKQ+LqFnswCcuYioe dadu77BPrIFgqpeWA7N7d7pn9E\/RV\/a8rEygjQCu6seYbtYnc2UCNQZdASWHCQXVmPdKjUz4EzJP Sbh8PHn7Nhv1gUc\/q3ln2VTY6x9F\/sM01QH7YXGcN64eRBoi21drM7+j92+CcsYOtqS7\/wFBTXklTp5NHzEJDks+vkLov+ys5bGJrDBuUqcg+74b99B+DwqZKJ4bNszhcUze9QG5PFUSzTjH63\/2hkB6 e6vJKhb2GzWTLA9xWXWGZcNrWvuaPJLC2QHOH\/a8UVHvcGO4CRZ4gVTtzPFdvPAbocr+TTUrjjthzq22iNDIVoW604J02lA+EKZ5TboQ9fUVB9tiNJlpdt2D\/wYqS+qDesNBVRuk2mnZD6K88tcLLNMuzSF4YFi0dbUvaEJ4U3h7Hq3haoRIEhEt+q57fin5czv58YeyPECWRA+RnKWlJ4lePVHWbOS+gM05 6aGh7Nv+Ixn2XBF4J7nT1IIJetpH33rlJG5H3k\/1z2hP7rBNzewLG\/jAQC9Iwwcb0VFQ0ZKVJIlA wombCUsZFGWKP+1i95oxeAePfVeSKz4Y1\/xE0gX1fOQicDCu7XBUXJGvSeEWFzzxr8moWklE9hcW tOBqbNej8p\/glaGSwj22FCKH9obfGMHlPHFMHrekG+f+vlvZfZ8xUfW5p65VquoV9\/+FgIKy5qQ2AHsuFd+4RraCMsARvrMHo9KGq3fOGBe8YIZ\/XATGdVMlzWpTeGOlj\/PVyXSn8xKnmbU12MNI157M\/8tocFfIfiEEZpzjwRZR7lKxvu0tYBlrRgcUQxvEmE2gtd0gFKNoj8Bw4GrdbU2Cf5bGna8uH7pcrFRSpx61G6G1ZHuoyAVJ4EaHqdc6t1Q3pCyIeugskzCCXhBpUS8j2lBIfcyGaBfse+irl8Nlbvt9 t2SsqOexXA4ita1FMJ4iokLmNwzS3rrPUcPK4bl3UA2BA2\/BmiCqzyn0+nyM5ITQ4O9\/dlfzrWIGSiIKZ6oexJxxlI92XxpgFNhIDa2X6QBWZU33Qzb1OfhmH0UQAYUmckowXp7I7y5Sk44VtVi1P+byRxQZXcTEgKPobMFPEijy4wBN2GQpVd37v8pGFNaJaekwEzZfZoEeiT4o+g1hNroeG7o+ibPvljsh 4yyq7k4Oe4uqtV3HkyfpsVxywcNrwEZwjKLPE67cVfIfhT1zXTgNgztVVaSKAerheFSMr4vxvuBZz8lmjSlDw9LKbZcoYoVav7DFBC3sHcOwfAyDomK9xS8ByiJm6B+2sG9MjIo7pdGhfqVzz5PRe0x+r8a5Pr\/x7133vMynWQYu51i4JCLHc+O8z1hwV3q0UUIbba3k06o3Bjn\/cX5pLpCyipTh\/QEz7u6mnq0+uDIuloYNzRPu+C5CEkp\/zHUAGYT9xm\/cCavrxUXUWOSbvXNm9wy21tc16hiqdILji8xpitK+Jk7cRORqAMRYwJBG5UqdzOH5FKLEDy0VAoAeRPcczwfc2Y19cGerwA8pX959b\/9NyMfBjj9Tt1byFZ4NxEfpna28rLZGEMQ0ZkhYedI1U43KBSBwD4\/3qKawO6hTXPM7U4bsS23YJbJrQ\/HrDkQ6tqB3\r\njAGwSbcnj0z5ura1W0gEow+hNrPO\/bT+a8LlZ4W1HGeAMCx6LeX0Ia+K0DyKYDD6qbevmPNxBVVc1U0LbUV3q5ylghr4IW7txMp0jiaHQHNNmXQr9zYYosTgOV2MhR09+n3p+B9SxZLlFqZQ8VRa3G6g7DC6OM5e6O5tGACNyxNFMLmIHkDfs4hCucCUFrh9SdE9kEaVRJFJlbv5MqRUjgUafjW8dYv0lGF9 eQyrOZdcsUwZCnJFA7Gb0p8PBzXhlQgqnB9uO13Bl3f59uGvS5onOGaytLfy12fdx\/Z8ln6L4ru1Tn1YOCWe3+hLz6gGVU9cB3j1ndtwf6KAw+6ma3vJtWRAXjBYKRl6bG+4UQE\/Z0MTB0ksfmBj7qaa3vtVLQdpIFfJQn\/1hdXoV7K7GPkmCJ2QPmtJECp6lJddTTDO72BIQAEPRVfKQQQ0uS1Yxcdm6mKoYBBoVaeAzUzX+W6QUrfFtEgRnjDq0snmjwmzvirXnUmLM9AM+uGJwXEdmrYyH+l4j5lk96rszzGsBFswxPyA1M3HDirrcOHWa7fo2SWNirTd3xzh4C\/4EYnnqmsZDimTdm1LTN6iDV0koAROCkIrND3u nZ0aLDg0LOGnIgIZwCzxFjU\/k8glKeHOtTbfWzFjT4hyIkY1rULjCfLGfW3piJwcnRUTTxEIDNS9qcKdmcbEPYvmibHuC+fea3KLw60ERVffld7vwII\/bVV99RIML+NTCR4fGiN7fiwxaSD8pvYOXfvp bRMQvTbkCiGMr52mAEmuwFuXoM4NnSvqNCwFE1zTacd4RvkTsQ==","SymmetricKeyEncryptedValue":"mYuHi0wPX4\/PBKG7t12HbccmpRJz7QJATlh1UBy8ji4XnUawh85LfXGfgTBn9xq5GS8yl0PFaQ\/BLL7C53Oiyui0\/dB+VN+0UC\/NHxKugAxbj+KwSrJ5SQxEWY8KO\/1aE6X+Wn+Y8m1tfWvV3qs7aX3qmC\/GXskZd+5vFAc5vsv\/Ovs34cNoCzrQ\/0pG8QyjCPPvgBwd8iSObk+FhCPlFiBpYgl0RwlicI4r4vyZEb9HySf8qjokh7UweZ3pQsxoUOEqASGChsx3CClcKVpw3vZlIGW68FUTSfZM0j96dbUNjZmvtlDtgw9jO2TJJnysAtF8GKFB4oOesN72XPVKKQ==","Scope":"Andromeda","TransactionId":"","OAuthTokenValue":"a4a02e3c-2f9f-46b8-9bb5-bad95b736a54"}"
+          "headers" => array:2 [?
+            "Content-Type" => "application/json"
+            "apikey" => "l7be914bdf2ef743a6b04b5018d40c97a5"
+          ]
+          "timeout" => 180
+          "cert" => "/etc/httpd/ssl/andromeda-dev/certificate.crt"
+          "ssl_key" => "/etc/httpd/ssl/andromeda-dev/certificate.key"
+
+
+
+//RESPONSE
+#message: """
+    Client error: `POST https://openapiuat.hdfcbank.com:9443/API/Fintech_OfferAvail` resulted in a `401 Unauthorized` response:\n
+    {\n
+    \t"ResponseSignatureEncryptedValue" : "",\n
+    \t"GWSymmetricKeyEncryptedValue" : "",\n
+    \t"Scope" : "",\n
+    \t"TransactionId" : "",\n
+    \t (truncated...)\n
+    """
+  #code: 401
+  #file: "/home/andromeda-stage/public_html/vendor/guzzlehttp/guzzle/src/Exception/RequestException.php"

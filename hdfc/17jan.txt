@@ -1,0 +1,40 @@
+array:2 [?
+  0 => array:1 [?
+    "doCompleteDocumentUpload" => array:10 [?
+      "Ref_No" => "39nbJBdWGH3Ggux2IowhmOuFwJ0ykJ6Z8MTDY4DE0e5viGArPCX17X+dKY+aWWhshJt6g3EWXPRIithF8RHh+A=="
+      "deviceId" => "FinTech_ANDROMEDA"
+      "RequestTime" => "2019/01/17 09:52:03 AM"
+      "UniqueKey" => "HDFCMOBAPP5RUCGF70ZQ"
+      "Filler1" => "Website"
+      "Filler2" => "c0814229c201ab1022070741d15eda7af2189db64a2c88699c6481dbb83521af72616dddc77c6be373f4bd08fef6aa6b205a268758f525a8c736c67e8a5b0361[B@283e8a6a"
+      "Filler3" => ""
+      "Filler4" => "kausunm4llwwg44ks0w0"
+      "Filler5" => ""
+      "strFinalUpload" => "Y"
+    ]
+  ]
+  1 => "{"keyString":"FinTechANDROMEDA.201900117.VR42G7BK6TKOU14DQSWW","sb":"998a8a27a3f51d13cf9ad745f0f783067f103dd51ed932b975c4345d1a2c5e80",
+"sb2":"c0814229c201ab1022070741d15eda7af2189db64a2c88699c6481dbb83521af",
+"sb3":"72616dddc77c6be373f4bd08fef6aa6b205a268758f525a8c736c67e8a5b0361",
+"keyToEncode":"c0814229c201ab1022070741d15eda7af2189db64a2c88699c6481dbb83521af72616dddc77c6be373f4bd08fef6aa6b205a268758f525a8c736c67e8a5b0361",
+"hdfcEncryptedKey":"c0814229c201ab1022070741d15eda7af2189db64a2c88699c6481dbb83521af72616dddc77c6be373f4bd08fef6aa6b205a268758f525a8c736c67e8a5b0361[B@283e8a6a"}"
+]
+
+array:2 [?
+  "StatusCode" => 200
+  "Success" => {#8958 ?
+    +"doCompleteDocumentUploadResponse": {#8914 ?
+      +"doCompleteDocumentUploadResult": {#9001 ?
+        +"flag": "0"
+        +"error_msg": "There seems to be a technical error. Please try again."
+        +"response_status": "Failure"
+        +"Filler1": ""
+        +"Filler3": ""
+        +"Filler2": ""
+        +"response_time": "2019/01/17 03:22:03 PM"
+        +"error_code": "1"
+      }
+    }
+  }
+]
+

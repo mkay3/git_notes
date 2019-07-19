@@ -1,0 +1,339 @@
+# route::get('/','c@m')->name('abc');
+# route::post('/','c@m')->
+
+# name
+Route::get('/','c@index')->name('signup');
+# as
+Route::get('/',['as'=>'signup','uses'=>'c@index']);
+
+# first of all create route group for all routes
+Route::group(['domain or prefix or namespace'=> 'value'],function(){
+
+});
+
+## domain 
+Route::group(['domain'=>'b2c.frontend.url'],function(){
+	
+	Route::get('','c@m');
+	
+	Route::post('','c@m')->name('');
+	
+	Route::get('',['as'=>'name', 'uses'=>'c@m']);
+	
+	Route::get('','a/b/c@m');
+	
+	Route::get('user/{name}',function($name){
+		//return $name;
+		//echo $name;
+		//return view('user.blade');
+	});
+
+	
+});
+
+## prefix 
+Route::group(['prefix'=>'my-account'],function(){
+	//all routes
+	Route::get('','c@m');
+	Route::post('','c@m')->name('');
+	Route::post('/save-update-password', 'Auth\AccountController@passwordSave')->name('save_update_password');
+});
+
+## middleware
+Route::group(['middleware'=>['auth','acl']],function(){
+	//all routes
+	Route::get('','c@m');
+	Route::post('','c@m')->name('');
+});
+
+## A route group using domain,prefix and middleware
+Route::group(['domain'=>'b2c.frontend.url'],function(){
+
+	Route::group(['prefix'=>'acl'],function(){
+		Route::group(['middleware'=>['auth','acl']],function(){
+			
+			//all routes
+			Route::get();
+			Route::post();
+		
+		});
+	});
+});
+
+# A route group with single domain and multiple prefix
+Route::group(['domain'=>'b2c.frontend.url'],function(){
+	Route::group(['prefix'=>'home'],function(){
+		Route::group(['middleware'=>'auth'],function(){
+			//all routes
+			
+		});
+	});
+	
+	Route::group(['prefix'=>'appplication'],function(){
+		//all routes
+	});
+});
+ 
+# VIEW
+return view('frontend.user_details')
+		->with('user_id',$user_id)
+		->with('app_id',$app_id);
+ 
+## Repositories 
+
+1. First of all create an interface
+	<?php namespace App\B2c\Repositories\Contracts;
+
+	use App\B2c\Repositories\Factory\Contracts\RepositoryInterface;
+	interface ApplicationInterface extends RepositoryInterface{
+	
+	}
+
+2. Call this interface in controller constructor function using its object and assign
+   this object to a protected variable
+
+    use App\B2c\Repositories\Contracts\ApplicationInterface as B2cApplicationInterface;
+	protected $application;
+	
+	public function __construct( B2cApplicationInterface $application ){
+		$this->application = $application;
+	}
+	
+	$businessData = $this->application->getBizInformation($user_id, $app_id);
+  
+3. create a repository and implement interface
+	class ApplicationRepository extends BaseRepositories implements ApplicationInterface{
+		public function getBizInformation($app_user_id, $app_id, $res_data_id = null)
+		{
+			return ApplicationBusiness::getBizInformation($app_user_id, $app_id, $res_data_id);
+		}
+	}
+	
+4. Good to go ! 
+
+## TRAIT
+1. create a trait 
+	trait ApplicationTraits {
+		public function saveBusinessBasicInfo(){
+		
+		}
+	}
+	
+2. use that trait in controller
+	class ApplicationController extends Controller
+	{
+		use PrepareDataTrait,    
+			ApplicationTraits;
+	}
+
+## MIDDLEWARE
+#Create
+php artisan make:middleware CheckAge [folder : app/Http/Middleware]
+i.e-
+namespace App\Http\Middleware; 
+use Closure;
+ 
+class CheckAge
+{
+    public function handle($request, Closure $next)
+    {
+        if ($request->age <= 200) {
+            return redirect('home');
+        }
+        return $next($request);
+    }
+}
+
+#Register
+
+In app/http/kernel : 
+protected $routeMiddleware = [
+        'auth' => \App\Http\Middleware\Authenticate::class,
+	]
+	
+protected $middlewareGroups = [
+	'web' => [
+             \App\Http\Middleware\Geoip::class,
+		]
+	]
+
+	
+#Call
+#Using routes
+Route::get('/',['middleware'=>'mid1','uses'=>'c@m']);
+Route::get('/','c@m')->middleware('mid2');
+
+#Using controller
+public function __construct(){ 
+	$this->middleware(['mid1','mid2']); 
+} 	
+
+## BLADE
+
+# @yield, it always gets the section from the child layout. That means it always overrides the @yield part, even if it has a default defined as @yield('section', 'Default Content')
+@yield('content')   layout.app
+@section('content') any content sdsadsdsa @endsection  child blade
+
+   
+## ARTISAN COMMANDS
+# MODELS AND DATABASE MIGRATIONS
+# php artisan make:controller PostController
+# php artisan make:model post 
+# php artisan make:model post -m [it will create table also i.e posts]   
+# php artisan make:controller PostController --resource [it create all basic crud functions in controller]
+# php artisan route:list
+# php artisan make:auth
+
+#In migration class , we can add extra fields :
+<?php
+
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
+
+class CreateUsersTable extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::create('users', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('name');
+            $table->string('email')->unique();
+            $table->string('password');
+			$table->mediumText('address');
+            $table->rememberToken();
+            $table->timestamps();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::dropIfExists('users');
+    }
+}
+
+# if we get error due to string length , resolve using this :
+
+use Illuminate\Support\Facades\Schema;
+class AppServiceProvider extends ServiceProvider
+{
+    public function boot(){
+		Schema::defaultStringLength(191);
+	}
+}
+
+# How to run migration ?
+ php artisan migrate
+ 
+## Model Relationship
+2 table user,post
+user model:
+public function posts(){
+ $this->hasMany('app\post');
+} 
+
+post model:
+public function user(){
+ $this->belongsTo('app\user');
+}
+
+in Controller
+$user_id = Auth()->user()->id;
+$user = User::find($user_id);
+$posts = $user->posts;
+   OR
+   
+$user_id = Auth()->user()->id;
+$posts = User::find($user_id)->posts;
+
+## ACCESS Controller
+if(Auth::guest() )
+ hide code
+@endif
+Auth::user()->id;
+
+##Repositories Folder Pattern
+	/App/b2c/Repositories
+		#Contracts -
+			all other interfaces
+			/traits -
+				all traits
+			
+		#Entites -
+			/a - 
+				a_repository
+			/b -
+				b_repository
+			/c -
+				c_repository
+			/d -
+				d_repository		
+		
+		#Events 
+		
+		#Factory - 
+			/Contracts -  
+				RepositoryInterface
+				
+			/Events -
+				BaseEvent
+				
+			/Models -
+				BaseModel
+				
+			/Repositories -
+				BaseRepositories
+		
+		#Libraries
+		#Models -
+			all models except BaseModel
+		#Providers -
+			B2cServiceProvider (custom)
+		#config -
+			common.php (All common config items those we are not keeping in the database level.)
+		
+		
+		
+# Laravel Directory Structure:
+  /app
+  /http - 
+	Controllers - controllers  
+	Middleware - middlewares 
+	Requests - form va;lidation rules and requests
+	kernel.php	
+
+
+## Service Provider 
+They are central place of all Laravel application bootstrapping.
+Your own application, as well as all of Laravel’s core services are bootstrapped via service providers.
+#register: declare all your service container bindings.
+ and a #boot method: use already registered services via the register method
+
+php artisan make:provider TestServiceProvider
+
+<?php
+	namespace App\Providers;
+	use Illuminate\Support\ServiceProvider;class TestServiceProvider extends ServiceProvider
+	{
+		public function boot(){
+		}
+		
+		public function register(){
+			$this->app->bind(‘App\Service\TestServiceInterface’, ‘App\Service\TestService OR app\b2c\Testrepository’);
+		}
+	}
+	
+	
+
+
+

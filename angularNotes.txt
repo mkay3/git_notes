@@ -1,11 +1,16 @@
-How To install angular :
+Node js is required for anulgar , So first check if node is installed
+	npm -v
 
- npm install -g @angular/cli
+
+How To install angular :
+	npm install -g @angular/cli
 
 Step 2. Create a new project 
-ng new my-app or
-cd my-app
-ng serve
+	ng new my-app or
+	
+# Start the Project
+	cd my-app
+	ng serve
 
 #How angular js load and start
 main.ts

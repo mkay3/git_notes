@@ -184,8 +184,8 @@ obj->TESTSUM(); @case2
 !!It is used after starting of application and before execution of user defined code.
 !!php artisan make:middleware LoggerMiddleware
 @how to define it in route:
-Route::get('middleware_testing',['middleware'=>'Loggerbla','uses'=>'AdminController@index']);
-Route::get('middleware_testing','AdminController@index')->middleware('midname');
+Route::get('middleware_testing',['middleware'=>'LoggerMiddleware','uses'=>'AdminController@index']);
+Route::get('middleware_testing','AdminController@index')->middleware('LoggerMiddleware');
    OR
 In controller,  public function __construct(){ $this->middleware(['mid1','mid2']); } 
 @if multiple middlewares are there:

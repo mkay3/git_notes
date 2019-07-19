@@ -1,0 +1,120 @@
+diff --git a/app/Http/Controllers/Auth/RegisterController.php b/app/Http/Controllers/Auth/RegisterController.php
+index 9ae4bc013..9021e18c6 100644
+--- a/app/Http/Controllers/Auth/RegisterController.php
++++ b/app/Http/Controllers/Auth/RegisterController.php
+@@ -307,7 +307,8 @@ class RegisterController extends Controller
+                 $is_email_verified = (isset($userData) && !empty($userData)) ? $userData->is_email_verified : 0;
+                 if (!empty($login_user_id)) {
+                     $lastApp = $this->application->getLatestApplicationByStatus($user_id, config('b2c_common.INCOMPLETE_APP'));
+-                    $app_id = (isset($lastApp) && !empty($lastApp)) ? $lastApp->app_id :'';
++                    $app_id = (!empty($lastApp)) ? $lastApp->app_id :'';
++                    $app_status = $this->userRepo->getStatusById($app_id);
+                     $applicant_id = (isset($lastApp) && !empty($lastApp)) ? $lastApp->app_applicant_id : '';
+                     $msName = 'message';
+                     $tokenValid = Helpers::checkTokenValidForUser($user_id, $token);
+@@ -372,13 +373,23 @@ class RegisterController extends Controller
+                 $activationUserInfo = $this->activationRepo->getUserInfoByToken($token);
+                 if(!empty($activationUserInfo) && $activationUserInfo->is_verified == 1){
+                     if(!empty($login_user_id)){
+-                        return redirect(route('in_progress_application'))->with('message', 'Your email link has been already verified.');
++                        /*if (!empty($app_id) && ( Session::has('isReviewSubmit') && Session::get('isReviewSubmit')==1 )) {*/
++                         if($app_status->current_status_id == 43){
++                            return redirect(route('review_submit', ['user_id' => $user_id, 'app_id' => $app_id, 'applicant_id' => $applicant_id]))->with('message', 'Your email link has been already verified.');
++                        } else {
++                            return redirect(route('in_progress_application'))->with('message', 'Your email link has been already verified.');
++                        }
+                     }else{
+                         return redirect($this->loginPath())->with('message', 'Your email link has been already verified.');
+                     }
+                 }else{
+                     if(!empty($login_user_id)){
+-                        return redirect(route('in_progress_application'))->withErrors(['Your email link has been expired.']);
++                        /*if (!empty($app_id) && ( Session::has('isReviewSubmit') && Session::get('isReviewSubmit')==1 )) {*/
++                         if($app_status->current_status_id == 43){
++                            return redirect(route('review_submit', ['user_id' => $user_id, 'app_id' => $app_id, 'applicant_id' => $applicant_id]))->withErrors(['Your email link has been expired.']);
++                        } else {
++                            return redirect(route('in_progress_application'))->withErrors(['Your email link has been expired.']);
++                        }
+                     }else{
+                         return redirect($this->loginPath())->withErrors(['Your email link has been expired.']);
+                     }
+@@ -399,20 +410,34 @@ class RegisterController extends Controller
+      * @return  redirect
+      */
+     public function verifyUserEditedEmail($token)
+-    {
++    {   
+         $userData = Auth::user();
++
+         $user_id = (isset($userData) && !empty($userData)) ? $userData->id : '';
+         $tokenValid = 0;
+         $msName = 'messageVerify';
+-     
++        $app_id = null;
++        $applicant_id = null;
++        $lastApp = [];
+         try {
+             $userData = $this->activationRepo->getUserInfoByToken($token);
+             if (!empty($user_id)) {
++                $lastApp = $this->application->getLatestApplicationByStatus($user_id, config('b2c_common.INCOMPLETE_APP'));
++                $app_id = (!empty($lastApp)) ? $lastApp->app_id :'';
++                $app_status = $this->userRepo->getStatusById($app_id);
++                $applicant_id = (isset($lastApp) && !empty($lastApp)) ? $lastApp->app_applicant_id : '';
+                 $tokenValid = Helpers::checkTokenValidForUser($user_id, $token);
+                 $msName = 'message';
+                 if ($tokenValid <= 0) {
+                     if(!empty($userData) && $userData->is_verified == 1){
+-                        return redirect(route('edit_profile'))->with('message', 'Your email link has been already verified.');
++                        if($app_status->current_status_id == 43){
++                            
++                            return redirect(route('review_submit', ['user_id' => $user_id, 'app_id' => $app_id, 'applicant_id' => $applicant_id]))->with('message', 'Your email link has been already verified.');
++                        }
++                        else{
++                            return redirect(route('edit_profile'))->with('message', 'Your email link has been already verified.');
++                        }
++                        
+                     } else {
+                         return redirect(route('edit_profile'))->withErrors(['Your email link has been expired.']);
+                     }
+@@ -443,20 +468,38 @@ class RegisterController extends Controller
+                     }
+                 Session::flash($msName, 'Your email has been verified.');
+                 if (!empty($user_id)) {
+-                    return redirect(route('edit_profile'));
++                    if($app_status->current_status_id == 43){
++                        return redirect(route('review_submit', ['user_id' => $user_id, 'app_id' => $app_id, 'applicant_id' => $applicant_id]));
++                    }
++                    else{
++                        return redirect(route('edit_profile'));
++                    }
++                    
+                 } else {
+                     return redirect($this->loginPath()); 
+                 }
+             } else {
+                 if(!empty($userData) && $userData->is_verified == 1){
+                     if (!empty($user_id)) {
+-                        return redirect(route('edit_profile'))->with('message', 'Your email link has been already verified.');
++                        if($app_status->current_status_id == 43){
++                            return redirect(route('review_submit', ['user_id' => $user_id, 'app_id' => $app_id, 'applicant_id' => $applicant_id]))->with('message', 'Your email link has been already verified.');
++                        }
++                        else{
++                            return redirect(route('edit_profile'))->with('message', 'Your email link has been already verified.');
++                        }
++                        
+                     } else {
+                         return redirect($this->loginPath())->with('message', 'Your email link has been already verified.');
+                     } 
+                 } else {
+                    if (!empty($user_id)) {
+-                        return redirect(route('edit_profile'))->withErrors(['Your email link has been expired.']);
++                        if($app_status->current_status_id == 43){
++                            return redirect(route('review_submit', ['user_id' => $user_id, 'app_id' => $app_id, 'applicant_id' => $applicant_id]))->withErrors(['Your email link has been expired.']);
++                        }
++                        else{
++                            return redirect(route('edit_profile'))->withErrors(['Your email link has been expired.']);
++                        }
++                        
+                     } else {
+                         return redirect($this->loginPath())->withErrors(['Your email link has been expired.']);
+                     }  
