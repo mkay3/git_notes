@@ -1,4 +1,4 @@
-# route::get('/','c@m')->name('abc');
+﻿# route::get('/','c@m')->name('abc');
 # route::post('/','c@m')->
 
 # name
@@ -85,6 +85,7 @@ return view('frontend.user_details')
 	<?php namespace App\B2c\Repositories\Contracts;
 
 	use App\B2c\Repositories\Factory\Contracts\RepositoryInterface;
+	
 	interface ApplicationInterface extends RepositoryInterface{
 	
 	}
@@ -212,6 +213,7 @@ class CreateUsersTable extends Migration
     }
 
     /**
+	
      * Reverse the migrations.
      *
      * @return void
@@ -334,6 +336,239 @@ php artisan make:provider TestServiceProvider
 	}
 	
 	
+##PACKAGE
+1. Create a Folder Structure
+	packages
+		wisdmlabs
+			todolist
+				src
+			
+2. Create the Composer File
+	#Inside the “todolist” folder run the following command : 
+		composer init
 
+	#change this information in the “composer.json” file :
+		{
+			"name": "wisdmlabs/todolist",
+			"description": "You can create the to-do-list of your task.",
+			"authors": [
+				{
+					"name": "John Doe",
+					"email": "john.doe@wisdmlabs.com"
+				}
+			],
+			"minimum-stability": "dev"
+		}
 
+3. Load the Package from the Main Composer.JSON File
+	# Add the namespace of our package in “autoload > psr-4”
+	"autoload": {
+        "classmap": [
+		...
+        ],
+        "psr-4": {
+            "App\\": "app/",
+            "WisdmLabs\\Todolist\\": "packages/wisdmlabs/todolist/src/"
+        }
+    },
+	#composer update
+	
+4.Create a Service Provider for Package
+	# Php artisan make:provider TodolistServiceProvider
+	# Now move that provider file into our package i.e., in packages/wisdmlabs/todolist/scr folder.
+	packages
+		wisdmlabs
+			todolist
+				src
+					TodolistServiceProvider.php
 
+5. Add service provider in the file “config/app.php“.
+	'providers' => [
+        /*
+         * Application Service Providers...
+         */
+         ...
+        App\Providers\RouteServiceProvider::class,
+        Wisdmlabs\Todolist\TodolistServicesProvider::class,
+    ],
+	
+6. Create the Model for the Table 
+	#move the “Task.php” model file from app/Task.php to our package folder providers/wisdmlabs/todolist/src/Task.php
+	#change namespace
+
+7. Create a Controller
+	#move the controller from app/controllers/TaskController.php to providers/wisdmlabs/todolist/TaskController.php 
+	<?php
+	===================================
+		namespace Wisdmlabs\Todolist;
+
+		use App\Http\Controllers\Controller;
+		use Request;
+		use Wisdmlabs\Todolist\Task;
+
+		class TodolistController extends Controller
+		{
+			public function index()
+			{
+				return redirect()->route('task.create');
+			}
+
+			public function create()
+			{
+				$tasks = Task::all();
+				$submit = 'Add';
+				return view('wisdmlabs.todolist.list', compact('tasks', 'submit'));
+			}
+
+			public function store()
+			{
+				$input = Request::all();
+				Task::create($input);
+				return redirect()->route('task.create');
+			}
+
+			public function edit($id)
+			{
+				$tasks = Task::all();
+				$task = $tasks->find($id);
+				$submit = 'Update';
+				return view('wisdmlabs.todolist.list', compact('tasks', 'task', 'submit'));
+			}
+
+			public function update($id)
+			{
+				$input = Request::all();
+				$task = Task::findOrFail($id);
+				$task->update($input);
+				return redirect()->route('task.create');
+			}
+
+			public function destroy($id)
+			{
+				$task = Task::findOrFail($id);
+				$task->delete();
+				return redirect()->route('task.create');
+			}
+		}
+	=================================	
+
+8.	Create a Routes File
+	# Create a new file in “wisdmlabs/todolist/src” folder and give the name “routes.php”. D
+
+9. Create the Views
+	#To create views, we have to create a “views” folder under “wisdmlabs/todolist/src/.
+	================================================
+	@extends('wisdmlabs.todolist.app')
+	@section('content')
+		@if(isset($task))
+			<h3>Edit : </h3>
+			{!! Form::model($task, ['route' => ['task.update', $task->id], 'method' => 'patch']) !!}
+		@else
+			<h3>Add New Task : </h3>
+			{!! Form::open(['route' => 'task.store']) !!}
+		@endif
+			<div class="form-inline">
+				<div class="form-group">
+					{!! Form::text('name',null,['class' => 'form-control']) !!}
+				</div>
+				<div class="form-group">
+					{!! Form::submit($submit, ['class' => 'btn btn-primary form-control']) !!}
+				</div>
+			</div>
+		{!! Form::close() !!}
+		<hr>
+		<h4>Tasks To Do : </h4>
+		<table class="table table-bordered table-striped">
+			<thead>
+				<tr>
+					<th>Name</th>
+					<th>Action</th>
+				</tr>
+			</thead>
+			<tbody>
+				@foreach($tasks as $task)
+					<tr>
+						<td>{{ $task->name }}</td>
+						<td>
+							{!! Form::open(['route' => ['task.destroy', $task->id], 'method' => 'delete']) !!}
+								<div class='btn-group'>
+									<a href="{!! route('task.edit', [$task->id]) !!}" class='btn btn-default btn-xs'><i class="glyphicon glyphicon-edit"></i></a>
+									{!! Form::button('<i class="glyphicon glyphicon-trash"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-xs', 'onclick' => "return confirm('Are you sure?')"]) !!}
+								</div>
+							{!! Form::close() !!}
+						</td>
+					</tr>
+				@endforeach
+			</tbody>
+		</table>
+	@endsection
+	================================================
+
+10. Update the Service Provider to Load the Package 	
+	# Important Step : loading the routes, migrations, views, and so on
+	==================================================
+	<?php
+		namespace wisdmlabs\todolist;
+
+		use Illuminate\Support\ServiceProvider;
+
+		class TodolistServiceProvider extends ServiceProvider
+		{
+			/**
+			 * Bootstrap the application services.
+			 *
+			 * @return void
+			 */
+			public function boot()
+			{
+				$this->loadRoutesFrom(__DIR__.'/routes.php');
+				$this->loadMigrationsFrom(__DIR__.'/migrations');
+				$this->loadViewsFrom(__DIR__.'/views', 'todolist');
+				$this->publishes([
+					__DIR__.'/views' => base_path('resources/views/wisdmlabs/todolist'),
+				]);
+			}
+
+			/**
+			 * Register the application services.
+			 *
+			 * @return void
+			 */
+			public function register()
+			{
+				$this->app->make('wisdmLabs\todolist\TodolistController');
+			}
+		}
+	==================================================
+	
+11. Updating the Composer File
+	#we have include the “laravelcollective/html package” in our package. To do this, we have to add the dependencies of our package in “composer.json”
+	===============================================
+	{
+		"name": "wisdmlabs/todolist",
+		"description": "You can create the to-do-list of your task.",
+		"authors": [
+			{
+				"name": "John Doe",
+				"email": "john.doe@wisdmlabs.com"
+			}
+		],
+		"minimum-stability": "dev",
+		"require": {
+			"laravelcollective/html": "^5.5"
+		},
+		"extra": {
+			"laravel": {
+				"providers": [
+					"wisdmlabs\\todolist\\TodolistServiceProvider"
+				]
+			}
+		},
+		"autoload": {
+			"psr-4": {
+				"Wisdmlabs\\Todolist\\": "src/"
+			}
+		}
+	}
+	===============================================
+	#We can add extra object in the “composer.json” which will load our package so that a user doesn’t have to add our package in “config/app.php” in providers array. And the package will be loaded automatically.
