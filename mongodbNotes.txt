@@ -1,0 +1,266 @@
+#What is MongoDB ?
+	MongoDB is an open-source document database and leading NoSQL database.
+	MongoDB is written in C++. 
+	MongoDB works on concept of collection and document.
+	
+#Database :
+	Database is a physical container for collections.
+
+#Collection :
+	Collection is a group of MongoDB documents.
+	Collections do not enforce a schema
+	Documents within a collection can have different fields
+	All documents in a collection are of similar or related purpose.
+
+#Document :
+	A document is a set of key-value pairs.
+	Documents have dynamic schema. Dynamic schema means that documents
+	in the same collection do not need to have the same
+	set of fields or structure.
+
+#Difference:	
+RDBMS 		|	MongoDB
+Database 	|	Database
+Table 		|	Collection
+Tuple/Row 	|	Document
+column 		|	Field
+Table Join 	|	Embedded Documents
+Primary Key |	Primary Key (Default key  '_id' provided by mongodb itself)
+
+#_id : 
+	_id is a 12 bytes hexadecimal number which assures the uniqueness of every document. 
+	You can provide _id while inserting the document. If you don’t provide then MongoDB provides a unique id for every document.
+	first 4 bytes for the current timestamp,
+	next 3 bytes for machine id,
+	next 2 bytes for process id of MongoDB server and 
+	remaining 3 bytes are simple incremental VALUE.
+	
+#Advantages of MongoDB over RDBMS :
+	Schema less
+	Number of fields, content and size of the document can differ from one document to another.
+	No complex joins.
+	MongoDB supports dynamic queries on documents using a document-based query language(as powerful as SQL.)
+	MongoDB is easy to scale.
+	Doesn't need mapping of application objects to database objects.
+	Uses internal memory for storing the (windowed) working set, enabling faster access of data.
+	
+#Why Use MongoDB?
+    Document Oriented Storage 
+	Data is stored in the form of JSON style documents.
+    Index on any attribute    
+    Auto sharding
+    Rich queries
+    Fast in-place updates
+	Replication and high availability
+	
+#Where to Use MongoDB
+    Big Data, content management and delivery, mobile and social Infrastructure, user data management, data hub
+	
+#How to run MongoDB 
+	go to the bin directory and type 'mongo.exe'  
+
+#How to Install MongoDB on Ubuntu 
+	sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 7F0CEB10
+
+# >db.stats()  : This will show the database name, number of collection and documents in the database.
+
+# To use any database
+	>use db_name
+	
+# To check the currently selected database
+	>db
+	
+# To show database list : 
+	>show dbs 	
+	
+# To drop a existing database 
+	first select a database ( use mydb ) and use following command :
+	>db.dropDatabase()
+	If you haven't selected any database,it will delete default 'test' database.	
+
+## To create a collection 
+	db.createCollection(name,{options})   
+	i.e
+	>db.createCollection("mycollection")
+	>db.createCollection("mycollection",{capped:true, autoIndexId:true, size:6142800, max:10000 })
+	
+	#Optional Parameters:
+	capped(boolean) :If true, enables a capped collection. Capped collection is a fixed size collection that automatically 	overwrites its oldest entries when it reaches its maximum size. If you specify true, you need to specify size parameter also.
+	
+	autoIndexId(boolean) :If true, automatically create index on _id field.s Default value is false.
+	
+	size(number) : Specifies a max size in bytes for a capped collection. If capped is true, then required this field also.
+	
+	max(number) : Specifies the maximum number of documents allowed in the capped collection.While inserting the document, MongoDB first checks size field of capped collection, then it checks max field.
+	
+	MongoDB creates collection automatically, when you insert some document.
+	i.e >db.tutorialspoint.insert({"name" : "tutorialspoint"})
+		>show collections
+		tutorialspoint
+	
+# To drop a collection
+	>db.collection_name.drop()
+	return true/error
+
+
+## How to insert in MongoDB
+	>db.COLLECTION_NAME.insert(document)
+	i.e 
+	>db.mycollection.insert({
+	   _id: ObjectId(7df78ad8902c),
+	   title: 'MongoDB Overview', 
+	   description: 'MongoDB is no sql database',
+	   by: 'tutorials point',
+	   url: 'http://www.tutorialspoint.com',
+	   tags: ['mongodb', 'database', 'NoSQL'],
+	   likes: 100
+	})
+	Note: if we don't specify the _id parameter, then MongoDB assigns a unique ObjectId for this document.
+	
+   # Multiple Documents
+	i.e
+	>db.post.insert([
+	   {
+		  title: 'MongoDB Overview', 
+		  description: 'MongoDB is no sql database',
+		  by: 'tutorials point',
+		  url: 'http://www.tutorialspoint.com',
+		  tags: ['mongodb', 'database', 'NoSQL'],
+		  likes: 100
+	   },
+		
+	   {
+		  title: 'NoSQL Database', 
+		  description: "NoSQL database doesn't have tables",
+		  by: 'tutorials point',
+		  url: 'http://www.tutorialspoint.com',
+		  tags: ['mongodb', 'database', 'NoSQL'],
+		  likes: 20, 
+		  comments: [	
+			 {
+				user:'user1',
+				message: 'My first comment',
+				dateCreated: new Date(2013,11,10,2,35),
+				like: 0 
+			 }
+		  ]
+	   }
+	])
+
+## Data-TYPES in MongoDB
+    String: String in MongoDB must be UTF-8 valid.
+
+    Integer: used to store a numerical value. Integer can be 32 bit or 64 bit depending upon your server.
+
+    Boolean: (true/ false) value.
+
+    Double: used to store floating point values.
+
+    Min/ Max keys: This type is used to compare a value against the lowest and highest BSON elements.
+
+    Arrays: used to store arrays or list or multiple values into one key.
+
+    Timestamp − ctimestamp. This can be handy for recording when a document has been modified or added.
+
+    Object: used for embedded documents.
+
+    Null: used to store a Null value.
+
+    Symbol: used identically to a string; however, it's generally reserved for languages that use a specific symbol type.
+
+    Date: used to store the current date or time in UNIX time format. You can specify your own date time by creating object of Date and passing day, month, year into it.
+
+    Object ID: used to store the document’s id.
+
+    Binary data: used to store binary data.
+
+    Code: used to store javaScript code into the document.
+
+    Regular expression: used to store regular expression.
+	
+# How to find documents
+	>db.COLLECTION_NAME.find() : this method will display all the documents in a non-structured way.
+	>db.COLLECTION_NAME.find().pretty() : this method will display the results in a formatted way.
+	>db.COLLECTION_NAME.findOne() : return only 1 document
+
+# How to find documents using conditions
+	>db.COLLECTION_NAME.find( {"name":"tutorials point"} )
+	lower than    		 	>db.mycol.find({"likes": {$lt:50} })
+	lower than equals to 	>db.mycol.find({"likes": {$lte:50}})	
+	greater than         	>db.mycol.find({"likes": {$gt:50} })
+	greater than equal to  	>db.collection_name.find({"likes": {$gte:50} })
+	not equals to          	>db.collection_name.find({"likes":{$ne:50} })
+	
+	
+##AND OR Conditions	
+	#cond1 and cond2 
+	>db.collection_name.find({ $and: [{key1:cond1}, {key2:cond2}] })
+	i.e 
+	>db.mycol.find({$and:[{"by":"tutorials point"},{"title": "MongoDB Overview"}]}).pretty() {
+	   "_id": ObjectId(7df78ad8902c),
+	   "title": "MongoDB Overview", 
+	   "description": "MongoDB is no sql database",
+	   "by": "tutorials point",
+	   "url": "http://www.tutorialspoint.com",
+	   "tags": ["mongodb", "database", "NoSQL"],
+	   "likes": "100"
+	}
+	
+	#cond1 or cond2
+		>db.collection_name.find({ $or: [{key1:cond1}, {key2:cond2}] })
+		i.e
+		>db.mycol.find({$or:[{"by":"tutorials point"},{"title": "MongoDB Overview"}]}).pretty()
+		{
+		   "_id": ObjectId(7df78ad8902c),
+		   "title": "MongoDB Overview", 
+		   "description": "MongoDB is no sql database",
+		   "by": "tutorials point",
+		   "url": "http://www.tutorialspoint.com",
+		   "tags": ["mongodb", "database", "NoSQL"],
+		   "likes": "100"
+		}
+	
+	#AND and OR Together
+		>db.mycol.find({"likes": {$gt:10}, $or: [{"by": "tutorials point"},{"title": "MongoDB Overview"}]}).pretty()
+		{
+		   "_id": ObjectId(7df78ad8902c),
+		   "title": "MongoDB Overview", 
+		   "description": "MongoDB is no sql database",
+		   "by": "tutorials point",
+		   "url": "http://www.tutorialspoint.com",
+		   "tags": ["mongodb", "database", "NoSQL"],
+		   "likes": "100"
+		}
+	
+#Update in MongoDB
+	db.COLLECTION_NAME.update(SELECTION_CRITERIA, UPDATED_DATA)
+	>db.mycol.update({'title':'MongoDB Overview'},{$set:{'title':'New MongoDB Tutorial'}})
+	
+#Multiple Update in MongoDB	
+	>db.mycol.update({'title':'MongoDB Overview'},
+	{$set:{'title':'New MongoDB Tutorial'}},{multi:true})
+	
+#Save Method / Replace the existing document
+	db.COLLECTION_NAME.save({_id:ObjectId(),NEW_DATA})
+	>db.mycol.save({ "_id" : ObjectId(5983548781331adf45ec5), "title":"Tutorials Point New Topic",
+	"by":"Tutorials Point"  })
+	
+##Delete a Document in MongoDB
+	db.COLLECTION_NAME.remove(DELLETION_CRITTERIA)
+	>db.COLLECTION.remove({'title':'MongoDB Overview'})
+	
+	#Remove Only One
+	>db.COLLECTION_NAME.remove(DELETION_CRITERIA,1)
+	
+	#Remove All Documents
+	>db.mycol.remove({})
+
+## The find() Method with Second parameter
+	when key 1 means display key when 0 means hide key
+	>db.COLLECTION_NAME.find({},{KEY:1})
+	i.e 
+	>db.mycol.find({},{"title":1,_id:0})
+		{"title":"MongoDB Overview"}
+		{"title":"NoSQL Overview"}
+		{"title":"Tutorials Point Overview"}
+	
