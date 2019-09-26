@@ -182,7 +182,9 @@ Primary Key |	Primary Key (Default key  '_id' provided by mongodb itself)
 	>db.COLLECTION_NAME.find() : this method will display all the documents in a non-structured way.
 	>db.COLLECTION_NAME.find().pretty() : this method will display the results in a formatted way.
 	>db.COLLECTION_NAME.findOne() : return only 1 document
-
+	>db.mycol.find({},{"title":1,_id:0}).limit(2) [ title will show,id hide,all rows but limit 2 ]
+	>db.mycol.find({},{"title":1,_id:0}).limit(1).skip(1)
+	
 # How to find documents using conditions
 	>db.COLLECTION_NAME.find( {"name":"tutorials point"} )
 	lower than    		 	>db.mycol.find({"likes": {$lt:50} })
@@ -264,3 +266,14 @@ Primary Key |	Primary Key (Default key  '_id' provided by mongodb itself)
 		{"title":"NoSQL Overview"}
 		{"title":"Tutorials Point Overview"}
 	
+# Limit
+	>db.COLLECTION_NAME.find().limit(NUMBER)
+	
+# Skip
+	>db.mycol.find({},{"title":1,_id:0}).limit(1).skip(1)
+	
+# Sort
+	>db.COLLECTION_NAME.find().sort({KEY:1})
+	To specify sorting order 1 and -1 are used.
+	1 is used for ascending order while -1 is used for descending order.
+# 	

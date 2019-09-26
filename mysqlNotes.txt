@@ -1,0 +1,42 @@
+# LIKE operator
+	The percentage ( % ) wildcard matches any string of zero or more characters
+	The underscore ( _ ) wildcard matches any single character.
+	=> SELECT firstName FROM employees WHERE firstName LIKE 'a%';
+		i.e Anthny,Andy
+	=> LIKE '%on';
+		i.e Patterson,Thompson
+	=> LIKE '%on%'
+		i.e Bondur,Jones,Patterson
+	
+
+# LIMIT
+	select * from table_name LIMIT offset,rowcount
+	offset start from 0
+	
+# Self Join
+ => SELECT 
+    CONCAT(m.lastName, ', ', m.firstName) AS Manager,
+    CONCAT(e.lastName, ', ', e.firstName) AS 'Direct report'
+	FROM employees e
+	INNER JOIN employees m 
+	ON 
+	m.employeeNumber = e.reportsTo
+	ORDER BY Manager;
+	
+# Having
+	Having is used always with Group By
+ => SELECT ordernumber,price AS total
+	FROM orderdetails GROUP BY ordernumber
+	HAVING total > 1000;
+
+# ROLL UP
+ =>	SELECT productLine, SUM(orderValue) totalOrderValue
+	FROM sales GROUP BY productline WITH ROLLUP;
+
+	
+	
+	
+	
+	
+	
+	
