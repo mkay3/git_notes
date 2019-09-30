@@ -4,23 +4,21 @@
 
 # A module is a javascript library you can include in your project.
 
-#How to install a package
+# How to install a package
 	npm install package-name
 	
-#How to use a package
-	var x = require('package-name');
+# How to use a package
+	var package-name = require('package-name');
 	
-#Events
+# Events
 	#The Formidable Module : good to work with file uploads
-	
-
 	
 # var dt = require('./myfirstmodule');
 Here we use ./ to locate the module, that means that the module is located in the same folder as the Node.js file
 
 # exports.myDateTime = function () {
-  return Date();
-}; 
+      return Date();
+  }; 
 Use the exports keyword to make properties and methods available outside the module file.
 
 # http.createServer(function (req, res) { }
@@ -74,10 +72,10 @@ fs.open('mynewfile2.txt', 'w', function (err, file) {
   console.log('Saved!');
 });
 
-#to install a module globally
+# To install a module globally
 npm install express -g  
 
-# Uninstalling a Module
+# To uninstalling a Module
 npm uninstall express  
 
 # see list of modules
