@@ -1,3 +1,0 @@
-. base64_encode(sha1("8888|hdfc_Api|0000000919930946439|0107031800000248|false|Z3S5G2B8Z7")).
-
-1858 and HDFC-REFRENCE-POPUP need to merge on stage
