@@ -1,0 +1,11 @@
+# Abstract Class Vs Interface
+
+1. An abstract class can have access modifiers (public protected and private) but interface methods should always public and
+  abstract.
+2. Abstract classes have both abstract and non abstract methods but interface has just abstract method.
+3. An interface is a contract. An interface defines what a class can do, without saying anything about how the class will do it.
+4. A class can extend only one abstract class but can implement multiple interfaces. i.e An abstract class support single
+   inhertience but a interface support multi level inheritence.
+5. Interface does not contain data members. Abstract class contains data member.
+6. Members of interface cannot be static. Members of abstract class can be static.
+7. Abstract class can contain constructors while Interface does not contain constructors.

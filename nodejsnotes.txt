@@ -1,38 +1,56 @@
-# npm is a package manager for node js packages
+## MAIN FUNCTION
+	var http = require('http');
+	http.createServer(function (req, res) { 
+		res.writeHead(200, {'Content-Type': 'text/html'});
+		res.write(req.url);
+	}).listen(8081);
 
-# A package contain all the files you need for a module.
+	#Use the createServer() method to create an HTTP server:
+		The req argument that represents the request from the client, as an object (http.IncomingMessage object).
+	#res.writeHead(200, {'Content-Type': 'text/html'});
+		The first argument of the res.writeHead() method is the status code, the second argument is an object containing the response headers.
+	# res.write(req.url);
+		The req object has a property called "url" which holds the part of the url that comes after the domain name:
 
-# A module is a javascript library you can include in your project.
+# What is npm 
+	npm is a package manager for node js packages. A package contain all the files you need for a module.
 
-# How to install a package
-	npm install package-name
+#How to install a package
+    npm install package-name
 	
-# How to use a package
-	var package-name = require('package-name');
+#How to use a package
+    var x = require('package-name');
 	
-# Events
+#Events
 	#The Formidable Module : good to work with file uploads
+
+## MODULES	
+	#What is Module in node
+		A module is a javascript library you can include in your project.
 	
-# var dt = require('./myfirstmodule');
-Here we use ./ to locate the module, that means that the module is located in the same folder as the Node.js file
+	#To Install a Module globally
+		npm install express -g  
 
-# exports.myDateTime = function () {
-      return Date();
-  }; 
-Use the exports keyword to make properties and methods available outside the module file.
+	#To Uninstalling a Module
+		npm uninstall express  
 
-# http.createServer(function (req, res) { }
-Use the createServer() method to create an HTTP server:
+	#See list of modules
+		npm ls
+		
+	# How to use Module 
+		var dt = require('./myfirstmodule');
+		Here we use ./ to locate the module, that means that the module is located in the same folder as the Node.js file
+	
+	# Searching a Module in node js 
+		npm search express
 
-# res.writeHead(200, {'Content-Type': 'text/html'});
-The first argument of the res.writeHead() method is the status code, 200 means that all is OK, the second argument is an object containing the response headers.
+# Use the exports keyword to make properties and methods available outside the module file.
+	i.e 
+	exports.myDateTime = function () {
+		return Date();
+	};
 
-# http.createServer(function (req, res) {}
-The function passed into the http.createServer() has a req argument that represents the request from the client, as an object (http.IncomingMessage object).
-
-# res.write(req.url);
-This object has a property called "url" which holds the part of the url that comes after the domain name:
-
+## FILE SYSTEM IN NODE
 # Common use for the File System module:
     Read files
     Create files
@@ -40,55 +58,259 @@ This object has a property called "url" which holds the part of the url that com
     Delete files
     Rename files
 
-# The fs.readFile() method is used to read files on your computer.
-var http = require('http');
-var fs = require('fs');
-http.createServer(function (req, res) {
-  fs.readFile('demofile1.html', function(err, data) {
-    res.writeHead(200, {'Content-Type': 'text/html'});
-    res.write(data);
-    res.end();
-  });
-}).listen(8080); 
+# How to Read file in Node js
+i.e	var http = require('http');
+	var fs = require('fs');
+	http.createServer(function (req, res) {
+	    fs.readFile('demofile1.html', function(err, data) {
+			res.writeHead(200, {'Content-Type': 'text/html'});
+			res.write(data);
+			res.end();
+		});
+	}).listen(8080); 
 
-# Create Files
+# How to Create Files
     fs.appendFile()
     fs.open()
     fs.writeFile()
 
 # The fs.appendFile() method appends specified content to a file. If the file does not exist, the file will be created:
-var fs = require('fs');
-fs.appendFile('mynewfile1.txt', 'Hello content!', function (err) {
-  if (err) throw err;
-  console.log('Saved!');
-}); 
+i.e	var fs = require('fs');
+	fs.appendFile('mynewfile1.txt', 'Hello content!', function (err) {
+		if (err) throw err;
+		console.log('Saved!');
+	}); 
 
-# The fs.open() method takes a "flag" as the second argument, if the flag is "w" for
-"writing", the specified file is opened for writing. If the file does not exist, an empty file is created:
-var fs = require('fs');
-
-fs.open('mynewfile2.txt', 'w', function (err, file) {
-  if (err) throw err;
-  console.log('Saved!');
-});
-
-# To install a module globally
-npm install express -g  
-
-# To uninstalling a Module
-npm uninstall express  
-
-# see list of modules
-npm ls
-
-# Searching a Module in node js 
-npm search express
+# The fs.open() method takes a "flag" as the second argument,
+	If the flag is "w" for "writing", the specified file is opened for writing. 
+	If the file doesn't exist, an empty file is created:
+	i.e
+	var fs = require('fs');
+	fs.open('mynewfile2.txt', 'w', function (err, file) {
+		if (err) throw err;
+		console.log('Saved!');
+	});
 
 # To evaluate an argument (but not print result):
-node -e, node --eval
+	node -e, node --eval
 
 # To evaluate an argument and print result also:
-node -p
-#redmi note 7 64 gb 
-#asus zenfone max pro m2
-#Moto One Power
+	node -p
+
+## REPL METHODS
+	it represents a environment where a command is entered and the
+	system responds with an output in an interactive mode.Node.js comes bundled with a REPL environment.
+	It performs the following tasks −
+    Read − Reads user's input, parses the input into JavaScript data-structure, and stores in memory.
+    Eval − Takes and evaluates the data structure.
+    Print − Prints the result.
+    Loop − Loops the above command until the user presses ctrl-c twice.
+
+	# simple mathematics 
+		> 1 + 3
+		4
+		> 1 + ( 2 * 3 ) - 4
+		3
+
+	#If var keyword is not used, then the value is stored in the variable and printed.
+	if var keyword is used, then the value is stored but not printed. 
+	i.e
+		$ node
+		> x = 10
+		10
+		> var y = 10
+		undefined
+		> x + y
+		20
+	
+	#Multiline Expression
+	i.e
+		$ node
+		> var x = 0
+		undefined
+		> do {
+		   ... x++;
+		   ... console.log("x: " + x);
+		   ... } 
+		while ( x < 5 );
+		x: 1
+		x: 2
+		x: 3
+		x: 4
+		x: 5
+		undefined
+		>
+		
+	# Underscore Variable
+	i.e
+		$ node
+		> var x = 10
+		undefined
+		> var y = 20
+		undefined
+		> x + y
+		30
+		> var sum = _
+		undefined
+		> console.log(sum)
+		30
+		undefined
+		>
+		
+	#REPL Commands
+		ctrl + c − terminate the current command.
+
+		ctrl + c twice − terminate the Node REPL.
+
+		ctrl + d − terminate the Node REPL.
+
+		Up/Down Keys − see command history and modify previous commands.
+
+		tab Keys − list of current commands.
+
+		.help − list of all commands.
+
+		.break − exit from multiline expression.
+
+		.clear − exit from multiline expression.
+
+		.save filename − save the current Node REPL session to a file.
+
+		.load filename − load file content in current Node REPL session.
+
+	#How to Stop REPL
+		ctrl + c twice
+	
+## EVENTS IN NODE
+	# event handler(also called event listener),event emitter, event 
+	
+	#How to Create an eventEmitter object
+		var events = require('events');
+		var eventEmitter = new events.EventEmitter();
+	
+	#How to bind an event handler with an event:
+		eventEmitter.on('event(eventName)','eventHandler/eventListener');
+	
+	#How to fire events
+		eventEmitter.emit('eventName');	
+	
+	i.e
+	var events = require('events');
+	var eventEmitter = new events.EventEmitter();
+	var connectHandler = function(){
+		console.log('connection successful');
+		eventEmitter.emit('data_received');
+	}
+	
+	eventEmitter.on('connection',connectHandler);
+	eventEmitter.on('data_received',function(){
+		console.log('data received successfully');
+	});
+	eventEmitter.emit('connection');
+	console.log('Program Ended');
+Output=>
+	connection successful.
+	data received successfully.
+	Program Ended.
+	
+# How Node Applications Work?
+	In node js,any async function accept callback function as last parameter and callback accept
+	err as the first parameter.
+	var fs = require("fs");
+	i.e
+	var fs = require('fs');
+	fs.readFile('input.txt', function (err, data) {
+	   if (err) {
+		  console.log(err.stack);
+		  return;
+	   }
+	   console.log(data.toString());
+	});
+	
+	Here, fs.readFile() is a async function, If an error occurs during the read operation, then the err object will contain the corresponding error BUT readFile passes err and data to the callback function after the read operation is complete.
+	So you don't have to wait.
+
+# EventEmitter PROPERTIES:
+	# on(event,eventListener) : to bind an event with event handler/listener   //SAME
+	# emit(event) : to emit an event
+	# addListener(event,eventHandler) : to bind an event with event listener //SAME
+	# listenerCount(emitter, event);	
+	i.e
+	var events = require('events');
+	var eventEmitter = new events.EventEmitter();
+
+	var listner1 = function listner1() {
+		console.log('listner1 executed.');
+	}
+	var listner2 = function listner2() {
+		console.log('listner2 executed.');
+	}
+
+	eventEmitter.addListener('connection', listner1);
+	eventEmitter.on('connection', listner2);
+	var eventListeners = require('events').EventEmitter.listenerCount(eventEmitter,'connection');
+	console.log(eventListeners + " Listner(s) listening to connection event");
+
+	eventEmitter.emit('connection');
+	eventEmitter.removeListener('connection', listner1);
+	eventEmitter.emit('connection');
+	eventListeners = require('events').EventEmitter.listenerCount(eventEmitter,'connection');
+	console.log(eventListeners + " Listner(s) listening to connection event");
+	OUTPUT =>
+		2 Listner(s) listening to connection event
+		listner1 executed.
+		listner2 executed.
+		listner2 executed.
+		1 Listner(s) listening to connection event
+		
+# What is Buffer
+	Buffer represents a fixed-size chunk of memory allocated outside of the V8 JavaScript engine. Buffer is like an array of integers, which each represent a byte of data. Buffer class is a global class that can be accessed in an application without importing the buffer module. 
+
+# How to create buffer
+	3 Methods:
+	var buf = new Buffer(10);
+	
+	var buf = new Buffer([10, 20, 30, 40, 50]);
+	
+	var buf = new Buffer("Simply Easy Learning", "utf-8");  
+	[ utf8(default), ascii", "utf8", "utf16le", "ucs2", "base64" or "hex" ]
+
+# How to write buffer
+	> buf.write(string,offset,length,encoding);
+  =>
+    string: This is the string data to be written to buffer.
+    offset: This is the index of the buffer to start writing at. Default value is 0.
+    length: This is the number of bytes to write. Defaults to buffer.length.
+    encoding: Encoding to use. 'utf8' is the default encoding.
+  i.e 
+	buf = new Buffer(256);
+	len = buf.write("Simple Easy learning");
+	console.log(len + "Octets written"); output: 20
+		
+# How to read from Buffer
+	> buf.toString(encoding,start,end);
+  =>
+    encoding: 'utf8' is the default encoding.
+    start: Beginning index to start reading, defaults to 0.
+    end: End index to end reading, defaults is complete buffer.
+  i.e
+	buf = new Buffer(26);
+	for (var i = 0 ; i < 26 ; i++) {
+		buf[i] = i + 97;
+	}
+	console.log(buf.toString('ascii'))  // abcdefghijklmnopqrstuvwxyz 
+    console.log(buf.toString('ascii',0,5));  //abcde
+	console.log(buf.toString('utf8',0,5));  //abcde
+	console.log(buf.toString('undefined',0,5)); //as default is utf8 so abcde
+	
+	
+
+	
+	
+
+
+	
+
+
+	
+	
