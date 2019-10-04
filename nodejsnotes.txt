@@ -1,3 +1,12 @@
+﻿# WHAT IS NODE JS AND WHERE IT IS USED ?
+	Node JS is a server side platform built on google chrome's javascript v8 engine and it is used to build fast and scalable
+	applications, video streaming sites, real time web applications and distributed systems. 
+	
+# WHY NODE JS ?
+	NODE JS is a single threadred but highly scalable system.
+	NODE JS utilize javascript as its scripting language.
+	NODE JS use async , event driven I/O instead of seperate process or threads.
+	
 ## MAIN FUNCTION
 	var http = require('http');
 	http.createServer(function (req, res) { 
@@ -12,9 +21,11 @@
 	# res.write(req.url);
 		The req object has a property called "url" which holds the part of the url that comes after the domain name:
 
-# What is npm 
-	npm is a package manager for node js packages. A package contain all the files you need for a module.
-
+# What is NPM
+	An online repository for Node.js packages.
+	Command-line utility for installing packages, version management and dependency management of Node.js packages.
+	NPM is a package manager for node js packages. A package contain all the files you need for a module.
+	
 #How to install a package
     npm install package-name
 	
@@ -262,7 +273,8 @@ Output=>
 		listner2 executed.
 		listner2 executed.
 		1 Listner(s) listening to connection event
-		
+
+## BUFFERS		
 # What is Buffer
 	Buffer represents a fixed-size chunk of memory allocated outside of the V8 JavaScript engine. Buffer is like an array of integers, which each represent a byte of data. Buffer class is a global class that can be accessed in an application without importing the buffer module. 
 
@@ -299,15 +311,127 @@ Output=>
 		buf[i] = i + 97;
 	}
 	console.log(buf.toString('ascii'))  // abcdefghijklmnopqrstuvwxyz 
+    	console.log(buf.toString('ascii',0,5));  //abcde
+	console.log(buf.toString('utf8',0,5));  //abcde
+	console.log(buf.toString('undefined',0,5)); //as default is utf8 so abcde
+
+# How to read from Buffer
+	> buf.toString(encoding,start,end);
+	> buf.toJSON()
+  =>
+    encoding: 'utf8' is the default encoding.
+    start: Beginning index to start reading, defaults to 0.
+    end: End index to end reading, defaults is complete buffer.
+ i.e
+	buf = new Buffer(26);
+	for (var i = 0 ; i < 26 ; i++) {
+		buf[i] = i + 97;
+	}
+	console.log(buf.toString('ascii'))  // abcdefghijklmnopqrstuvwxyz 
     console.log(buf.toString('ascii',0,5));  //abcde
 	console.log(buf.toString('utf8',0,5));  //abcde
 	console.log(buf.toString('undefined',0,5)); //as default is utf8 so abcde
-	
-	
+ i.e
+	var buf = new Buffer('Simply Easy Learning');
+	var json = buf.toJSON(buf);
+	console.log(json);
+	// { type: 'Buffer',
+		   data: 
+		   [ 
+			  83,
+			  105,
+			  109,
+			  112,
+			  108,
+			  121,
+			  32,
+			  69,
+			  97,
+			  115,
+			  121,
+			  32,
+			  76,
+			  101,
+			  97,
+			  114,
+			  110,
+			  105,
+			  110,
+			  103 
+		   ]
+		}
+		
+# Concatenate Buffers
+	var buffer1 = new Buffer('TutorialsPoint ');
+	var buffer2 = new Buffer('Simply Easy Learning');
+	var buffer3 = Buffer.concat([buffer1,buffer2]);
+	console.log("buffer3 content: " + buffer3.toString());
 
-	
-	
+# Compare Buffers
+	buf.compare(otherBuffer);
 
+# 	var buffer1 = new Buffer('abc');
+	var buffer2 = new Buffer('abcd');
+	var result = buffer1.compare(buffer2);
+  i.e 
+	if(result < 0) {
+	   console.log(buffer1 +" comes before " + buffer2);
+	} else if(result === 0) {
+	   console.log(buffer1 +" is same as " + buffer2);
+	} else {
+	   console.log(buffer1 +" comes after " + buffer2);
+	}
+	//ABC comes before ABCD
+
+# Copy Buffer
+  i.e
+	var buffer1 = new Buffer('ABC');
+	var buffer2 = new Buffer(3);
+	buffer1.copy(buffer2);
+	console.log("buffer2 content: " + buffer2.toString());
+	//buffer2 content: ABC
+	
+# Slice Buffer
+  i.e
+	var buffer1 = new Buffer('TutorialsPoint');
+	var buffer2 = buffer1.slice(0,9);
+	console.log("buffer2 content: " + buffer2.toString());
+	//buffer2 content: Tutorials
+
+# Buffer Length
+	buffer.length;
+ i.e
+	var buffer = new Buffer('TutorialsPoint');
+	console.log("buffer length: " + buffer.length);
+	
+## STREAMS IN NODE
+	# What is stream 
+	Streams are objects that let you read data from a source or write data to a
+	destination in continous fashion. There are 4 types of stream:
+	=> Readable: Stream which is used for read operation.
+	=> Writable: Stream which is used for write operation.
+	=> Duplex: Stream which can be used for both read and write operation.
+	=> Transform: A type of duplex stream where the output is computed based on input.
+	
+	# Stream is an EventEmitter instance and throws several events at different instance of times.
+	Some commonly used events:
+   => data: This event is fired when there is data is available to read.
+   => end: This event is fired when there is no more data to read.
+   => error: This event is fired when there is any error receiving or writing data.
+   => finish: This event is fired when all the data has been flushed to underlying system.
+
+	#How to read from a stram
+		var fs = require('fs');
+		var rstream = fs.createReadStream('input.txt');
+		rstream.setEncoding('utf-8');
+		
+		rstream.on('data',function(chunk){
+			var data = data+chunk;
+		})	
+	
+# Explain chaining in Node.js.
+	Chaining is a process where output of one stream is connected to another stream creating
+	a chain of multiple stream operations.	
 
 	
 
