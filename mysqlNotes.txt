@@ -33,9 +33,23 @@
  =>	SELECT productLine, SUM(orderValue) totalOrderValue
 	FROM sales GROUP BY productline WITH ROLLUP;
 
+# PROCEDURE : A procedure has a name, a parameter list, and SQL statement(s).It reduce network traffic
+and avoid us to write repetitive queries.
+ =>
+	DELIMITER $$
+	CREATE PROCEDURE GetCustomers()
+	BEGIN
+		SELECT 
+			*
+		FROM
+			customers
+		ORDER BY customerName;    
+	END$$
+	DELIMITER ;
 	
-	
-	
+	Disadvantages: resource usage and troubleshooting
+
+# 	
 	
 	
 	
