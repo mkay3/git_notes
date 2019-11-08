@@ -1,0 +1,81 @@
+Q What is Dependency injection ?
+ dependency injection means passing of a dependency to dependent object. It is a technique in which one object supplies the dependency of another object.
+
+Q What is laravel contract ?
+  Laravel contracts are nothing but a set of interfaces that define the core services provided by the laravel.
+
+Q What are facades in laravel ?
+  Facades are like static like interface to the classes that are available in application's service container.
+  Laravel self-ship many facades which provide access to almost all features of laravel. All facades are defined in 
+  Illuminate/Support/Facades namespace.
+
+Q What are laravel eloquent ?
+  Laravel's Eloquent ORM is simple active record implementation for working with your database. Each database table has 
+  a corrosponding model which is used to intract with that table.
+	 $product =new Product;
+	 $product->title="Iphone 7";
+	 $product->price="$700";
+	 $product->tag='iphone';
+	 $product->save();
+
+Q What is reverse routing in laravel ?
+  Reverse routing is generating url based on route declarations.
+  // route declaration
+  Route::get('login', 'users@login');
+  
+  //reverse routing
+  {{ HTML::link_to_action('users@login') }}
+  Using reverse routing we can create a link to it and pass in any parameters
+  that we have defined. Optional parameters, if not supplied, are removed from the generated link.
+  
+Q How to turn off CSRF protection for specific route in laravel ?
+  In file “app/Http/Middleware/VerifyCsrfToken.php”
+	  //add an array of Routes to skip CSRF check
+	private $exceptUrls = ['controller/route1', 'controller/route2'];
+	 //modify this function
+	public function handle($request, Closure $next) {
+	 //add this condition foreach($this->exceptUrls as $route) {
+	 if ($request->is($route)) {
+	  return $next($request);
+	 }
+	}
+	return parent::handle($request, $next);
+	} 
+	
+Q How laravel use caching ?
+	Laravel support popular caching backends like Memecached and Redis. By default laravel use
+	file cache driver. For large projects , other 2 are used.
+
+Q  What is Lumen ?
+	Lumen is a micro framework which is used to create laravel based micro services and fast
+	Rest API's . It is one of the fastest frameworks available.
+	composer create-project laravel/lumen project_name
+	
+Q Explain Bundles in laravel ? Explain packages in laravel ?
+	Packages are used to add functionality in laravel. Some packages are stand-alone like they can
+	work with any framework while some are specifically intended for use with laravel.
+	
+Q List type of relationships available in Laravel eloquent ?
+	One to One
+	One to Many
+	Many to One
+	Many to Many
+	Has Many Through
+	Polymorphic relationships
+	Many to Many Polymorphic relationships
+	
+Q List some aggregate methods provided by laravel query builder ?
+	count(), max(), min(), avg(), sum()
+	
+Q How to check request is ajax or not ?
+	$request->ajax() to check request is ajax or not
+	
+Q Write types of dependency injection ?
+
+Q What is singleton design pattern ?
+
+Q Explain Inversion of control and how to implement it ?
+
+Q What is the key difference between traits and helpers ?
+
+Q 
