@@ -22,6 +22,14 @@
 	ON 
 	m.employeeNumber = e.reportsTo
 	ORDER BY Manager;
+
+i.e 
+	SELECT t1.`name` as 'empname', t2.`name` as 'manager'
+	FROM users t1
+	LEFT JOIN users t2
+	ON
+	t1.`reportTo`= t2.`id`
+
 	
 # Having
 	Having is used always with Group By
@@ -33,8 +41,9 @@
  =>	SELECT productLine, SUM(orderValue) totalOrderValue
 	FROM sales GROUP BY productline WITH ROLLUP;
 
-# PROCEDURE : A procedure has a name, a parameter list, and SQL statement(s).It reduce network traffic
-and avoid us to write repetitive queries.
+# PROCEDURE
+	A procedure has a name,parameter list and SQL statement(s).It reduce network traffic
+	and avoid us to write repetitive queries.
  =>
 	DELIMITER $$
 	CREATE PROCEDURE GetCustomers()
@@ -49,8 +58,33 @@ and avoid us to write repetitive queries.
 	
 	Disadvantages: resource usage and troubleshooting
 
-# 	
-	
-	
+# TRIGGERS
+	A Trigger is a stored program invoked automatically in response to a event like 
+	insert, update or delete that occur in the associated table. i.e a trigger invoked
+	before new row is inserted into a table.
+ =>
+	Create TRIGGER 
+	[Before/After] [Insert/Update/Delete]
+	ON table_name FOR EACH ROW
+	trigger_body;
+ =>
+	CREATE TRIGGER before_employee_update 
+    BEFORE UPDATE ON employees
+    FOR EACH ROW 
+	INSERT INTO employees_audit
+	SET action = 'update', employeeNumber = OLD.employeeNumber, lastname = OLD.lastname,
+    changedat = NOW();
+		
+# What is the main difference between MYISAM and INNODB ?
+
+  MYISAM has table level locking while INNODB has row-level locking.
+
+  MYISAM support FULLTEXT index while INNODB does not support FULLTEXT index.
+
+  Performance speed of MYISAM tables has much better than INNODB tables.
+
+  Innodb is better choice while handling larger database because it supports transactions.
+  	
+  MYISAM does not support transactions by table while INNODB does.	
 	
 	
