@@ -1,0 +1,4 @@
+# Dynamic typing : 
+	JavaScript variables can hold a value of any data type unlike other languages. You don't need to define type of a variable.
+	
+# 
